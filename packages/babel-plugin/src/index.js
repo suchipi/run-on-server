@@ -6,7 +6,7 @@ import * as errorMessages from "./errorMessages";
 import makeIdForNode from "./makeIdForNode";
 import buildIdMappingsFile from "./buildIdMappingsFile";
 
-export default function() {
+module.exports = function() {
   return {
     visitor: {
       Program(programPath, state) {
@@ -26,7 +26,7 @@ export default function() {
       },
     },
   };
-}
+};
 
 function handleClientImport(importDef, outputPath, state) {
   const mappings = {};

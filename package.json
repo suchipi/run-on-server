@@ -1,11 +1,11 @@
 {
   "private": true,
   "workspaces": [
+    "packages/babel-plugin",
     "packages/client",
-    "packages/macro-tester-tool",
+    "packages/plugin-tester-tool",
     "packages/run-on-server",
-    "packages/server",
-    "packages/transform"
+    "packages/server"
   ],
   "devDependencies": {
     "babel-cli": "^6.26.0",

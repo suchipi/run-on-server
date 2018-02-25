@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const babel = require("babel-core");
 const rimraf = require("rimraf");
-const plugin = require("@run-on-server/transform/dist/plugin").default;
+const plugin = require("babel-plugin-run-on-server");
 
 const macroPath = path.resolve(__dirname, "..", "..", "client.macro");
 const outputPath = path.join(process.cwd(), "run-on-server-id-mappings.js");
