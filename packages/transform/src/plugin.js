@@ -10,7 +10,6 @@ export default function() {
   return {
     visitor: {
       Program(programPath, state) {
-        console.log(state.options);
         const outputPath =
           (state.options && state.options.outputPath) ||
           path.join(process.cwd(), "run-on-server-id-mappings.js");
@@ -48,14 +47,12 @@ function handleClientImport(importDef, outputPath, state) {
 
     function makeError(messageFunc, node) {
       return new Error(
-        state.file.opts.filename +
-          "\n" +
-          messageFunc({
-            createClientFunctionName,
-            runOnServerFunctionName,
-            node,
-            state,
-          })
+        messageFunc({
+          createClientFunctionName,
+          runOnServerFunctionName,
+          node,
+          state,
+        })
       );
     }
 
