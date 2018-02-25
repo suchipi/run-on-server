@@ -1,6 +1,5 @@
 const cases = require("jest-in-case");
 const path = require("path");
-const dedent = require("dedent");
 const createServer = require("../server");
 const createClient = require("../client");
 
