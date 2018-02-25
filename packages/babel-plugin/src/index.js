@@ -11,7 +11,7 @@ module.exports = function() {
     visitor: {
       Program(programPath, state) {
         const outputPath =
-          (state.options && state.options.outputPath) ||
+          (this.opts && this.opts.outputPath) ||
           path.join(process.cwd(), "run-on-server-id-mappings.js");
 
         const imports = [];
