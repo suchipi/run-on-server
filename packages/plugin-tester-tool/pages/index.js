@@ -9,8 +9,8 @@ import OutputDisplay from "../components/OutputDisplay";
 
 const runOnServer = createClient("http://localhost:3001");
 
-const defaultInput = `// Edit this input to see what the macro would output below
-import createClient from "run-on-server/client.macro";
+const defaultInput = `// Edit this input to see what the babel plugin would output below
+import createClient from "run-on-server/client";
 
 const runOnServer = createClient("http://localhost:3001");
 
@@ -72,7 +72,7 @@ export default class IndexPage extends React.Component<{||}, State> {
     return (
       <React.Fragment>
         <Head>
-          <title>run-on-server macro tester tool</title>
+          <title>run-on-server babel plugin tester tool</title>
         </Head>
         <div
           style={{
