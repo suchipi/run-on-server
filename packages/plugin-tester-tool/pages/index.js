@@ -43,18 +43,13 @@ export default class IndexPage extends React.Component<{||}, State> {
 
   _submit = () => {
     runOnServer(
-      `
-      (() => {
+      `(() => {
         const inputCode = args[0];
-        const runMacroOnCode = require("./runMacroOnCode");
+        const compile = require("./compile");
   
-        const { code, output } = runMacroOnCode((macroPath) => {
-          return inputCode.replace("run-on-server/client.macro", macroPath);
-        });
-  
+        const { code, output } = compile(inputCode);
         return { code, output };
-      })();
-      `,
+      })();`,
       [this.state.input]
     )
       .then(({ code, output }) => {

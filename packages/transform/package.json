@@ -19,7 +19,7 @@
     "md5": "^2.2.1",
     "supports-color": "^5.1.0",
     "text-buffer": "^13.11.8",
-    "imports-visitor": "1.0.0"
+    "imports-visitor": "1.1.0"
   },
   "devDependencies": {
     "babel-core": "6",
