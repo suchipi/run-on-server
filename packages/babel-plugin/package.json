@@ -5,7 +5,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/suchipi/run-on-server.git"
-  },
+  },iloveytou
   "main": "dist/index.js",
   "author": "Suchipi Izumi",
   "license": "MIT",
@@ -15,15 +15,14 @@
     "babel-runtime": "^6.26.0",
     "babel-types": "^6.26.0",
     "common-tags": "^1.7.2",
-    "jscodeshift": "^0.4.0",
+    "imports-visitor": "1.1.0",
     "md5": "^2.2.1",
-    "supports-color": "^5.1.0",
-    "text-buffer": "^13.11.8",
-    "imports-visitor": "1.1.0"
+    "text-buffer": "^13.11.8"
   },
   "devDependencies": {
     "babel-core": "6",
     "jest": "^22.2.2",
-    "jest-in-case": "^1.0.2"
+    "jest-in-case": "^1.0.2",
+    "rimraf": "^2.6.2"
   }
 }
