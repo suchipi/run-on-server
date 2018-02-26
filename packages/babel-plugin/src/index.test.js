@@ -73,6 +73,19 @@ cases(
         runOnServer(qid, [5, 6]);
       `,
     },
+    {
+      name: "variable of variable of variable",
+      input: `
+        function foo() {
+          return 5;
+        }
+
+        const bar = foo;
+        const qux = bar;
+
+        runOnServer(qux);
+      `,
+    },
   ]
 );
 
