@@ -166,3 +166,20 @@ export function runOnServerCalledWithNonConstantBinding({
     getCodeFrame(node, state)
   );
 }
+
+export function runOnServerCalledWithOrphanedBinding({
+  runOnServerFunctionName,
+  node,
+  state,
+}) {
+  return (
+    oneLine`
+      The first argument passed to ${runOnServerFunctionName} referred to a
+      variable whose value is not determined within the same file as the
+      ${runOnServerFunctionName} call. This is not supported by the
+      run-on-server babel plugin.
+    ` +
+    "\n" +
+    getCodeFrame(node, state)
+  );
+}

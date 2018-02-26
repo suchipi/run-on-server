@@ -1,3 +1,4 @@
 src
 test
 *.test.js
+__snapshots__

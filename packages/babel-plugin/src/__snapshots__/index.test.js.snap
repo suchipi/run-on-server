@@ -1,0 +1,543 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`errors create client result not saved to variable (custom createClient name) 1`] = `
+"unknown: The result of calling client was not saved to a variable.
+[0m [90m 2 | [39m        [36mimport[39m client from [32m\\"run-on-server/client\\"[39m[33m;[39m
+ [90m 3 | [39m
+[31m[1m>[22m[39m[90m 4 | [39m        client([32m\\"http://localhost:3000\\"[39m)([32m\\"args\\"[39m)[33m;[39m
+ [90m   | [39m       [31m[1m^[22m[39m
+ [90m 5 | [39m      [0m
+Saving the result of client to a variable is the only supported way to use the run-on-server babel plugin.
+For example, try:
+  const runOnServer = client(\\"http://somewhere:3000\\");"
+`;
+
+exports[`errors create client result not saved to variable 1`] = `
+"unknown: The result of calling createClient was not saved to a variable.
+[0m [90m 2 | [39m        [36mimport[39m createClient from [32m\\"run-on-server/client\\"[39m[33m;[39m
+ [90m 3 | [39m
+[31m[1m>[22m[39m[90m 4 | [39m        createClient([32m\\"http://localhost:3000\\"[39m)([32m\\"args\\"[39m)[33m;[39m
+ [90m   | [39m       [31m[1m^[22m[39m
+ [90m 5 | [39m      [0m
+Saving the result of createClient to a variable is the only supported way to use the run-on-server babel plugin.
+For example, try:
+  const runOnServer = createClient(\\"http://somewhere:3000\\");"
+`;
+
+exports[`errors create client result not saved to variable as identifier (custom createClient name) 1`] = `
+"unknown: The result of calling client was saved to a variable, but that variable was created in an unexpected way.
+[0m [90m 2 | [39m        [36mimport[39m client from [32m\\"run-on-server/client\\"[39m[33m;[39m
+ [90m 3 | [39m
+[31m[1m>[22m[39m[90m 4 | [39m        [36mconst[39m { apply[33m,[39m call } [33m=[39m client([32m\\"http://localhost:3000\\"[39m)[33m;[39m
+ [90m   | [39m             [31m[1m^[22m[39m
+ [90m 5 | [39m      [0m
+The only variable declaration forms supported by the run-on-server babel plugin are:
+  const runOnServer = client(\\"http://somewhere:3000\\");
+OR
+  let runOnServer = client(\\"http://somewhere:3000\\");
+OR
+  var runOnServer = client(\\"http://somewhere:3000\\");"
+`;
+
+exports[`errors create client result not saved to variable as identifier 1`] = `
+"unknown: The result of calling createClient was saved to a variable, but that variable was created in an unexpected way.
+[0m [90m 2 | [39m        [36mimport[39m createClient from [32m\\"run-on-server/client\\"[39m[33m;[39m
+ [90m 3 | [39m
+[31m[1m>[22m[39m[90m 4 | [39m        [36mconst[39m { apply[33m,[39m call } [33m=[39m createClient([32m\\"http://localhost:3000\\"[39m)[33m;[39m
+ [90m   | [39m             [31m[1m^[22m[39m
+ [90m 5 | [39m      [0m
+The only variable declaration forms supported by the run-on-server babel plugin are:
+  const runOnServer = createClient(\\"http://somewhere:3000\\");
+OR
+  let runOnServer = createClient(\\"http://somewhere:3000\\");
+OR
+  var runOnServer = createClient(\\"http://somewhere:3000\\");"
+`;
+
+exports[`errors runOnServer called with invalid expression (custom runOnServer name) 1`] = `
+"unknown: The first argument passed to run was not a template literal, string literal, arrow function expression, function expression, or variable referring to one of those.
+[0m [90m 4 | [39m        [36mconst[39m run [33m=[39m createClient([32m\\"http://localhost:3000\\"[39m)[33m;[39m
+ [90m 5 | [39m
+[31m[1m>[22m[39m[90m 6 | [39m        run([35m2[39m [33m+[39m [35m2[39m)[33m;[39m
+ [90m   | [39m           [31m[1m^[22m[39m
+ [90m 7 | [39m      [0m
+These are the only forms supported by the run-on-server babel plugin."
+`;
+
+exports[`errors runOnServer called with invalid expression 1`] = `
+"unknown: The first argument passed to runOnServer was not a template literal, string literal, arrow function expression, function expression, or variable referring to one of those.
+[0m [90m 4 | [39m        [36mconst[39m runOnServer [33m=[39m createClient([32m\\"http://localhost:3000\\"[39m)[33m;[39m
+ [90m 5 | [39m
+[31m[1m>[22m[39m[90m 6 | [39m        runOnServer([35m2[39m [33m+[39m [35m2[39m)[33m;[39m
+ [90m   | [39m                   [31m[1m^[22m[39m
+ [90m 7 | [39m      [0m
+These are the only forms supported by the run-on-server babel plugin."
+`;
+
+exports[`errors runOnServer called with non-constant binding (custom runOnServer name) 1`] = `
+"unknown: The first argument passed to run referred to a variable whose value changes during the execution of the program. This is not supported by the run-on-server babel plugin.
+[0m [90m  7 | [39m        code [33m=[39m [32m\\"args\\"[39m[33m;[39m
+ [90m  8 | [39m
+[31m[1m>[22m[39m[90m  9 | [39m        run(code)[33m;[39m
+ [90m    | [39m           [31m[1m^[22m[39m
+ [90m 10 | [39m      [0m"
+`;
+
+exports[`errors runOnServer called with non-constant binding 1`] = `
+"unknown: The first argument passed to runOnServer referred to a variable whose value changes during the execution of the program. This is not supported by the run-on-server babel plugin.
+[0m [90m  7 | [39m        code [33m=[39m [32m\\"args\\"[39m[33m;[39m
+ [90m  8 | [39m
+[31m[1m>[22m[39m[90m  9 | [39m        runOnServer(code)[33m;[39m
+ [90m    | [39m                   [31m[1m^[22m[39m
+ [90m 10 | [39m      [0m"
+`;
+
+exports[`errors runOnServer called with non-local binding (custom runOnServer name) 1`] = `
+"unknown: The first argument passed to run referred to a variable whose value is not determined within the same file as the run call. This is not supported by the run-on-server babel plugin.
+[0m [90m 4 | [39m
+ [90m 5 | [39m        [36mconst[39m run [33m=[39m createClient([32m\\"http://localhost:3000\\"[39m)[33m;[39m
+[31m[1m>[22m[39m[90m 6 | [39m        run(asdfasdf)[33m;[39m
+ [90m   | [39m           [31m[1m^[22m[39m
+ [90m 7 | [39m      [0m"
+`;
+
+exports[`errors runOnServer called with non-local binding 1`] = `
+"unknown: The first argument passed to runOnServer referred to a variable whose value is not determined within the same file as the runOnServer call. This is not supported by the run-on-server babel plugin.
+[0m [90m 4 | [39m
+ [90m 5 | [39m        [36mconst[39m runOnServer [33m=[39m createClient([32m\\"http://localhost:3000\\"[39m)[33m;[39m
+[31m[1m>[22m[39m[90m 6 | [39m        runOnServer(asdfasdf)[33m;[39m
+ [90m   | [39m                   [31m[1m^[22m[39m
+ [90m 7 | [39m      [0m"
+`;
+
+exports[`errors runOnServer called with template literal with expressions (custom runOnServer name) 1`] = `
+"unknown: The first argument passed to run was a template literal with embedded expressions. This is not supported by the run-on-server babel plugin.
+[0m [90m 4 | [39m        [36mconst[39m run [33m=[39m createClient([32m\\"http://localhost:3000\\"[39m)[33m;[39m
+ [90m 5 | [39m
+[31m[1m>[22m[39m[90m 6 | [39m        run([32m\`console.log(\${process.env.NODE_ENV})\`[39m)[33m;[39m
+ [90m   | [39m           [31m[1m^[22m[39m
+ [90m 7 | [39m      [0m
+Instead of doing this, use the \`args\` argument within the template literal string to reference the optional array that can be passed as the second argument to runOnServer:
+  run(\\"console.log(args)\\", [1, 2, 3]);
+"
+`;
+
+exports[`errors runOnServer called with template literal with expressions 1`] = `
+"unknown: The first argument passed to runOnServer was a template literal with embedded expressions. This is not supported by the run-on-server babel plugin.
+[0m [90m 4 | [39m        [36mconst[39m runOnServer [33m=[39m createClient([32m\\"http://localhost:3000\\"[39m)[33m;[39m
+ [90m 5 | [39m
+[31m[1m>[22m[39m[90m 6 | [39m        runOnServer([32m\`console.log(\${process.env.NODE_ENV})\`[39m)[33m;[39m
+ [90m   | [39m                   [31m[1m^[22m[39m
+ [90m 7 | [39m      [0m
+Instead of doing this, use the \`args\` argument within the template literal string to reference the optional array that can be passed as the second argument to runOnServer:
+  runOnServer(\\"console.log(args)\\", [1, 2, 3]);
+"
+`;
+
+exports[`errors runOnServer called with unresolvable binding (custom runOnServer name) 1`] = `
+"unknown: The first argument passed to run referred to a variable whose value is not determined within the same file as the run call. This is not supported by the run-on-server babel plugin.
+[0m [90m 3 | [39m
+ [90m 4 | [39m        [36mconst[39m run [33m=[39m createClient([32m\\"http://localhost:3000\\"[39m)[33m;[39m
+[31m[1m>[22m[39m[90m 5 | [39m        run(asdfasdf)[33m;[39m
+ [90m   | [39m           [31m[1m^[22m[39m
+ [90m 6 | [39m      [0m"
+`;
+
+exports[`errors runOnServer called with unresolvable binding 1`] = `
+"unknown: The first argument passed to runOnServer referred to a variable whose value is not determined within the same file as the runOnServer call. This is not supported by the run-on-server babel plugin.
+[0m [90m 3 | [39m
+ [90m 4 | [39m        [36mconst[39m runOnServer [33m=[39m createClient([32m\\"http://localhost:3000\\"[39m)[33m;[39m
+[31m[1m>[22m[39m[90m 5 | [39m        runOnServer(asdfasdf)[33m;[39m
+ [90m   | [39m                   [31m[1m^[22m[39m
+ [90m 6 | [39m      [0m"
+`;
+
+exports[`errors runOnServer called without arguments (custom runOnServer name) 1`] = `
+"unknown: run was called without any arguments. This is not a valid use of the run-on-server library, and is therefore not understood by the run-on-server babel plugin.
+[0m [90m 4 | [39m        [36mconst[39m run [33m=[39m createClient([32m\\"http://localhost:3000\\"[39m)[33m;[39m
+ [90m 5 | [39m
+[31m[1m>[22m[39m[90m 6 | [39m        run()[33m;[39m
+ [90m   | [39m       [31m[1m^[22m[39m
+ [90m 7 | [39m      [0m
+run expects to be called with a string or function as the first argument (the code to be executed), and optionally an array as the second argument (the arguments to pass to the executed code). For example:
+  run(\\"console.log('hi')\\");
+OR
+  run(() => console.log(\\"hi\\"));
+OR
+  run((a, b, c) => a + b + c, [1, 2, 3]);
+OR
+  run(\\"args[0] + args[1] + args[2]\\", [1, 2, 3]);
+"
+`;
+
+exports[`errors runOnServer called without arguments 1`] = `
+"unknown: runOnServer was called without any arguments. This is not a valid use of the run-on-server library, and is therefore not understood by the run-on-server babel plugin.
+[0m [90m 4 | [39m        [36mconst[39m runOnServer [33m=[39m createClient([32m\\"http://localhost:3000\\"[39m)[33m;[39m
+ [90m 5 | [39m
+[31m[1m>[22m[39m[90m 6 | [39m        runOnServer()[33m;[39m
+ [90m   | [39m       [31m[1m^[22m[39m
+ [90m 7 | [39m      [0m
+runOnServer expects to be called with a string or function as the first argument (the code to be executed), and optionally an array as the second argument (the arguments to pass to the executed code). For example:
+  runOnServer(\\"console.log('hi')\\");
+OR
+  runOnServer(() => console.log(\\"hi\\"));
+OR
+  runOnServer((a, b, c) => a + b + c, [1, 2, 3]);
+OR
+  runOnServer(\\"args[0] + args[1] + args[2]\\", [1, 2, 3]);
+"
+`;
+
+exports[`errors runOnServer not called directly (custom runOnServer name) 1`] = `
+"unknown: run was referenced in a way where it wasn't a direct variable call.
+[0m [90m 4 | [39m        [36mconst[39m run [33m=[39m createClient([32m\\"http://localhost:3000\\"[39m)[33m;[39m
+ [90m 5 | [39m
+[31m[1m>[22m[39m[90m 6 | [39m        module[33m.[39mexports [33m=[39m run[33m;[39m
+ [90m   | [39m                        [31m[1m^[22m[39m
+ [90m 7 | [39m      [0m
+This is not supported- the only form of referencing run supported by the run-on-server babel plugin is calling it directly, eg:
+  run(\\"args\\", [1, 2, 3]);"
+`;
+
+exports[`errors runOnServer not called directly 1`] = `
+"unknown: runOnServer was referenced in a way where it wasn't a direct variable call.
+[0m [90m 4 | [39m        [36mconst[39m runOnServer [33m=[39m createClient([32m\\"http://localhost:3000\\"[39m)[33m;[39m
+ [90m 5 | [39m
+[31m[1m>[22m[39m[90m 6 | [39m        module[33m.[39mexports [33m=[39m runOnServer[33m;[39m
+ [90m   | [39m                        [31m[1m^[22m[39m
+ [90m 7 | [39m      [0m
+This is not supported- the only form of referencing runOnServer supported by the run-on-server babel plugin is calling it directly, eg:
+  runOnServer(\\"args\\", [1, 2, 3]);"
+`;
+
+exports[`normal usage function declaration 1`] = `
+"
+import createClient from \\"run-on-server/client\\";
+
+const runOnServer = createClient(\\"http://localhost:3000\\");
+
+function foo() {
+  return 6;
+}
+
+async function bar() {
+  return 7;
+}
+
+function qux(x) {
+  return x;
+}
+
+async function qid(y, z) {
+  return y + z;
+}
+
+runOnServer({
+  id: \\"9bf52911e914c779e55c75f518770031\\"
+});
+runOnServer({
+  id: \\"c5963bf5888c57afb3234da5ed80d402\\"
+});
+runOnServer({
+  id: \\"8386c670f2377e7651112c1b200c71d8\\"
+}, [5]);
+runOnServer({
+  id: \\"dfddfef4776a37ff53405e54ed03f1bd\\"
+}, [5, 6]);"
+`;
+
+exports[`normal usage function declaration 2`] = `
+"/*
+This file was generated by the run-on-server babel plugin. It should not
+be edited by hand.
+*/module.exports = {
+  \\"9bf52911e914c779e55c75f518770031\\": function foo() {
+    return 6;
+  },
+  \\"c5963bf5888c57afb3234da5ed80d402\\": async function bar() {
+    return 7;
+  },
+  \\"8386c670f2377e7651112c1b200c71d8\\": function qux(x) {
+    return x;
+  },
+  \\"dfddfef4776a37ff53405e54ed03f1bd\\": async function qid(y, z) {
+    return y + z;
+  }
+};"
+`;
+
+exports[`normal usage function declaration 3`] = `
+"
+const createClient = require(\\"run-on-server/client\\");
+
+const runOnServer = createClient(\\"http://localhost:3000\\");
+
+function foo() {
+  return 6;
+}
+
+async function bar() {
+  return 7;
+}
+
+function qux(x) {
+  return x;
+}
+
+async function qid(y, z) {
+  return y + z;
+}
+
+runOnServer({
+  id: \\"9bf52911e914c779e55c75f518770031\\"
+});
+runOnServer({
+  id: \\"c5963bf5888c57afb3234da5ed80d402\\"
+});
+runOnServer({
+  id: \\"8386c670f2377e7651112c1b200c71d8\\"
+}, [5]);
+runOnServer({
+  id: \\"dfddfef4776a37ff53405e54ed03f1bd\\"
+}, [5, 6]);"
+`;
+
+exports[`normal usage function declaration 4`] = `
+"/*
+This file was generated by the run-on-server babel plugin. It should not
+be edited by hand.
+*/module.exports = {
+  \\"9bf52911e914c779e55c75f518770031\\": function foo() {
+    return 6;
+  },
+  \\"c5963bf5888c57afb3234da5ed80d402\\": async function bar() {
+    return 7;
+  },
+  \\"8386c670f2377e7651112c1b200c71d8\\": function qux(x) {
+    return x;
+  },
+  \\"dfddfef4776a37ff53405e54ed03f1bd\\": async function qid(y, z) {
+    return y + z;
+  }
+};"
+`;
+
+exports[`normal usage function expression 1`] = `
+"
+import createClient from \\"run-on-server/client\\";
+
+const runOnServer = createClient(\\"http://localhost:3000\\");
+
+runOnServer({
+  id: \\"20dd5f36e5e9c15bd0dbd1f47b9ce147\\"
+});
+runOnServer({
+  id: \\"ccdb69158c0f7b8abcc8b2e9998b2eb8\\"
+});
+runOnServer({
+  id: \\"7073929e2ed9b8bd3aa435866c8e9b93\\"
+}, [5]);
+runOnServer({
+  id: \\"90e94c8ac4e71ff57ebcceac9c88c830\\"
+}, [5]);
+runOnServer({
+  id: \\"dd0ace1b29ea37669faa77fe0757d64b\\"
+});
+runOnServer({
+  id: \\"59d83e55ca985cb4a36158245f07866b\\"
+});
+runOnServer({
+  id: \\"6bf1a99186253aab3e70593c70470470\\"
+}, 5);
+runOnServer({
+  id: \\"a12856ea0316c0c1496e9c21d59aa8bb\\"
+}, 5);
+runOnServer({
+  id: \\"2f725c91f6453e301ceade2ff2876aef\\"
+});
+runOnServer({
+  id: \\"fddfcddcfd03de96f11ea7cbc378bf80\\"
+});
+runOnServer({
+  id: \\"44541807dbfbb72a21a8ae4689edcb58\\"
+}, 5);
+runOnServer({
+  id: \\"6a9c65b9667567a593c80ef540dda6e7\\"
+}, 5);"
+`;
+
+exports[`normal usage function expression 2`] = `
+"/*
+This file was generated by the run-on-server babel plugin. It should not
+be edited by hand.
+*/module.exports = {
+  \\"20dd5f36e5e9c15bd0dbd1f47b9ce147\\": () => 5,
+  \\"ccdb69158c0f7b8abcc8b2e9998b2eb8\\": async () => 5,
+  \\"7073929e2ed9b8bd3aa435866c8e9b93\\": x => x,
+  \\"90e94c8ac4e71ff57ebcceac9c88c830\\": async x => x,
+  \\"dd0ace1b29ea37669faa77fe0757d64b\\": function () {
+    return 5;
+  },
+  \\"59d83e55ca985cb4a36158245f07866b\\": async function () {
+    return 5;
+  },
+  \\"6bf1a99186253aab3e70593c70470470\\": function (x) {
+    return x;
+  },
+  \\"a12856ea0316c0c1496e9c21d59aa8bb\\": async function (x) {
+    return x;
+  },
+  \\"2f725c91f6453e301ceade2ff2876aef\\": function serverCode() {
+    return 5;
+  },
+  \\"fddfcddcfd03de96f11ea7cbc378bf80\\": async function serverCode() {
+    return 5;
+  },
+  \\"44541807dbfbb72a21a8ae4689edcb58\\": function serverCode(x) {
+    return x;
+  },
+  \\"6a9c65b9667567a593c80ef540dda6e7\\": async function serverCode(x) {
+    return x;
+  }
+};"
+`;
+
+exports[`normal usage function expression 3`] = `
+"
+const createClient = require(\\"run-on-server/client\\");
+
+const runOnServer = createClient(\\"http://localhost:3000\\");
+
+runOnServer({
+  id: \\"20dd5f36e5e9c15bd0dbd1f47b9ce147\\"
+});
+runOnServer({
+  id: \\"ccdb69158c0f7b8abcc8b2e9998b2eb8\\"
+});
+runOnServer({
+  id: \\"7073929e2ed9b8bd3aa435866c8e9b93\\"
+}, [5]);
+runOnServer({
+  id: \\"90e94c8ac4e71ff57ebcceac9c88c830\\"
+}, [5]);
+runOnServer({
+  id: \\"dd0ace1b29ea37669faa77fe0757d64b\\"
+});
+runOnServer({
+  id: \\"59d83e55ca985cb4a36158245f07866b\\"
+});
+runOnServer({
+  id: \\"6bf1a99186253aab3e70593c70470470\\"
+}, 5);
+runOnServer({
+  id: \\"a12856ea0316c0c1496e9c21d59aa8bb\\"
+}, 5);
+runOnServer({
+  id: \\"2f725c91f6453e301ceade2ff2876aef\\"
+});
+runOnServer({
+  id: \\"fddfcddcfd03de96f11ea7cbc378bf80\\"
+});
+runOnServer({
+  id: \\"44541807dbfbb72a21a8ae4689edcb58\\"
+}, 5);
+runOnServer({
+  id: \\"6a9c65b9667567a593c80ef540dda6e7\\"
+}, 5);"
+`;
+
+exports[`normal usage function expression 4`] = `
+"/*
+This file was generated by the run-on-server babel plugin. It should not
+be edited by hand.
+*/module.exports = {
+  \\"20dd5f36e5e9c15bd0dbd1f47b9ce147\\": () => 5,
+  \\"ccdb69158c0f7b8abcc8b2e9998b2eb8\\": async () => 5,
+  \\"7073929e2ed9b8bd3aa435866c8e9b93\\": x => x,
+  \\"90e94c8ac4e71ff57ebcceac9c88c830\\": async x => x,
+  \\"dd0ace1b29ea37669faa77fe0757d64b\\": function () {
+    return 5;
+  },
+  \\"59d83e55ca985cb4a36158245f07866b\\": async function () {
+    return 5;
+  },
+  \\"6bf1a99186253aab3e70593c70470470\\": function (x) {
+    return x;
+  },
+  \\"a12856ea0316c0c1496e9c21d59aa8bb\\": async function (x) {
+    return x;
+  },
+  \\"2f725c91f6453e301ceade2ff2876aef\\": function serverCode() {
+    return 5;
+  },
+  \\"fddfcddcfd03de96f11ea7cbc378bf80\\": async function serverCode() {
+    return 5;
+  },
+  \\"44541807dbfbb72a21a8ae4689edcb58\\": function serverCode(x) {
+    return x;
+  },
+  \\"6a9c65b9667567a593c80ef540dda6e7\\": async function serverCode(x) {
+    return x;
+  }
+};"
+`;
+
+exports[`normal usage string 1`] = `
+"
+import createClient from \\"run-on-server/client\\";
+
+const runOnServer = createClient(\\"http://localhost:3000\\");
+
+runOnServer({
+  id: \\"c63afd45dad73502a085847e3c5ed5c2\\"
+});
+runOnServer({
+  id: \\"c63afd45dad73502a085847e3c5ed5c2\\"
+}, [1, 2, 3]);
+runOnServer({
+  id: \\"99beebb8fcb2435a7bcef2ce7c0d946e\\"
+});
+runOnServer({
+  id: \\"99beebb8fcb2435a7bcef2ce7c0d946e\\"
+}, [1, 2, 3]);"
+`;
+
+exports[`normal usage string 2`] = `
+"/*
+This file was generated by the run-on-server babel plugin. It should not
+be edited by hand.
+*/module.exports = {
+  \\"c63afd45dad73502a085847e3c5ed5c2\\": \\"args\\",
+  \\"99beebb8fcb2435a7bcef2ce7c0d946e\\": \`args\`
+};"
+`;
+
+exports[`normal usage string 3`] = `
+"
+const createClient = require(\\"run-on-server/client\\");
+
+const runOnServer = createClient(\\"http://localhost:3000\\");
+
+runOnServer({
+  id: \\"c63afd45dad73502a085847e3c5ed5c2\\"
+});
+runOnServer({
+  id: \\"c63afd45dad73502a085847e3c5ed5c2\\"
+}, [1, 2, 3]);
+runOnServer({
+  id: \\"99beebb8fcb2435a7bcef2ce7c0d946e\\"
+});
+runOnServer({
+  id: \\"99beebb8fcb2435a7bcef2ce7c0d946e\\"
+}, [1, 2, 3]);"
+`;
+
+exports[`normal usage string 4`] = `
+"/*
+This file was generated by the run-on-server babel plugin. It should not
+be edited by hand.
+*/module.exports = {
+  \\"c63afd45dad73502a085847e3c5ed5c2\\": \\"args\\",
+  \\"99beebb8fcb2435a7bcef2ce7c0d946e\\": \`args\`
+};"
+`;

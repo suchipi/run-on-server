@@ -101,36 +101,44 @@ function handleClientImport(importDef, outputPath, state) {
       }
 
       function transform(
-        code,
-        nodeToGetSourceFrom = code.node,
-        pathToReplace = code
+        node,
+        scope,
+        pathToReplace,
+        nodeToGetSourceFrom = node
       ) {
         // Handle irregular cases like runOnServer(2 + 2)
         if (
           !(
-            code.isTemplateLiteral() ||
-            code.isStringLiteral() ||
-            code.isArrowFunctionExpression() ||
-            code.isFunctionExpression() ||
-            code.isIdentifier()
+            t.isTemplateLiteral(node) ||
+            t.isStringLiteral(node) ||
+            t.isArrowFunctionExpression(node) ||
+            t.isFunctionExpression(node) ||
+            t.isIdentifier(node)
           )
         ) {
           throw makeError(
             errorMessages.runOnServerCalledWithInvalidExpression,
-            code.node
+            node
           );
         }
 
         // Handle eg. runOnServer(`${foo}`)
-        if (code.isTemplateLiteral() && code.node.expressions.length > 0) {
+        if (t.isTemplateLiteral(node) && node.expressions.length > 0) {
           throw makeError(
             errorMessages.runOnServerCalledWithTemplateLiteralWithExpressions,
-            code.node
+            node
           );
         }
 
-        if (code.isIdentifier() && code.scope.bindings[code.node.name]) {
-          const binding = code.scope.bindings[code.node.name];
+        if (t.isIdentifier(node)) {
+          const binding = scope.bindings[node.name];
+          if (binding == null) {
+            throw makeError(
+              errorMessages.runOnServerCalledWithOrphanedBinding,
+              node
+            );
+          }
+
           // Handle eg:
           // let foo = function(one) {};
           // foo = function(two) {};
@@ -138,7 +146,7 @@ function handleClientImport(importDef, outputPath, state) {
           if (!binding.constant) {
             throw makeError(
               errorMessages.runOnServerCalledWithNonConstantBinding,
-              code.node
+              node
             );
           }
 
@@ -155,20 +163,30 @@ function handleClientImport(importDef, outputPath, state) {
               functionDeclaration.async
             );
 
-            transform(functionExpression, functionDeclaration, code);
+            transform(
+              functionExpression,
+              scope,
+              pathToReplace,
+              functionDeclaration
+            );
             return;
           } else if (
             binding.path.isVariableDeclarator() &&
             binding.path.node.init != null
           ) {
-            const init = binding.path.get("init");
-            transform(init, init.node, code);
+            const init = binding.path.node.init;
+            transform(init, scope, pathToReplace);
             return;
+          } else {
+            throw makeError(
+              errorMessages.runOnServerCalledWithOrphanedBinding,
+              node
+            );
           }
         }
 
         const codeId = makeIdForNode(nodeToGetSourceFrom, state);
-        mappings[codeId] = JSON.parse(JSON.stringify(code.node));
+        mappings[codeId] = JSON.parse(JSON.stringify(node));
         pathToReplace.replaceWith(
           t.objectExpression([
             t.objectProperty(t.identifier("id"), t.stringLiteral(codeId)),
@@ -176,7 +194,7 @@ function handleClientImport(importDef, outputPath, state) {
         );
       }
 
-      transform(code);
+      transform(code.node, code.scope, code);
     });
   });
 
