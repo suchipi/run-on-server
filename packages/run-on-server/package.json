@@ -24,11 +24,10 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "jest": "^22.1.4",
     "jest-in-case": "^1.0.2"
   },
   "scripts": {
-    "test": "cd test && jest"
+    "test": "cd test && ../../../node_modules/.bin/jest"
   },
   "jest": {
     "transform": {}
