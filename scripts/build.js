@@ -1,6 +1,6 @@
 const path = require("path");
 const fs = require("fs");
-const { cd, rm, exec } = require("shelljs");
+const { cd, rm, exec, cp } = require("shelljs");
 const chalk = require("chalk");
 const packageJson = require("../package.json");
 

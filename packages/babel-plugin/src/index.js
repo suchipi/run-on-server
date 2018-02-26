@@ -10,9 +10,17 @@ module.exports = function() {
   return {
     visitor: {
       Program(programPath, state) {
-        const outputPath =
-          (this.opts && this.opts.outputPath) ||
-          path.join(process.cwd(), "run-on-server-id-mappings.js");
+        let outputPath = path.join(
+          process.cwd(),
+          "run-on-server-id-mappings.js"
+        );
+        if (this.opts && this.opts.outputPath) {
+          if (path.isAbsolute(this.opts.outputPath)) {
+            outputPath = this.opts.outputPath;
+          } else {
+            outputPath = path.resolve(process.cwd(), this.opts.outputPath);
+          }
+        }
 
         const imports = [];
         programPath.traverse(importsVisitor, { imports });
@@ -29,6 +37,7 @@ module.exports = function() {
 };
 
 function handleClientImport(importDef, outputPath, state) {
+  // TODO: handle existing file
   const mappings = {};
 
   const binding = importDef.path.findParent((parent) => parent.isStatement())
