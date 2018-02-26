@@ -69,7 +69,7 @@ runOnServer(async () => {
 
 ## Warnings / Security
 
-Out of the box, this effectively gives the client serverside `eval`. However, there's a babel plugin that will restrict the server so that it will only run the code that appeared in your source at compile-time. For more info, read the [README for babel-plugin-run-on-server](http://fill-this-link-in-later.com)
+Out of the box, this effectively gives the client serverside `eval`. However, there's a babel plugin that will restrict the server so that it will only run the code that appeared in your source at compile-time. For more info, read the [README for babel-plugin-run-on-server](https://github.com/suchipi/run-on-server/blob/master/packages/babel-plugin/README.md)
 
 ## Installation
 
@@ -110,7 +110,7 @@ The optional `options` object that can be passed to `createServer` has this shap
 
 If `requireFrom` is present, it will specify the starting folder for top-level `require` calls in the code passed to `runOnServer`. For instance, If you set `requireFrom` to "/Users/suchipi/Code/run-on-server", then you would be able to load "/Users/suchipi/Code/run-on-server/foo.js" with `require("./foo")`. If you don't specify a `requireFrom`, it will default to the server's current working directory.
 
-`idMappings` is used in conjunction with a babel plugin to restrict the server so that it can only run code that appeared in your source. For more info, see the [README for babel-plugin-run-on-server](http://fill-this-link-in-later.com).
+`idMappings` is used in conjunction with a babel plugin to restrict the server so that it can only run code that appeared in your source. For more info, see the [README for babel-plugin-run-on-server](https://github.com/suchipi/run-on-server/blob/master/packages/babel-plugin/README.md).
 
 ### `createClient(url: string) => Function`
 
