@@ -93,13 +93,69 @@ Add it to your `.babelrc`:
 
 By default, the id mappings file will be written to `run-on-server-id-mappings.js` in whatever directory you run babel in. You can configure it by setting the `outputPath` option in your `.babelrc`:
 
-<!-- prettier-ignore -->
 ```json
 {
   "plugins": [
-    ["run-on-server", {
-      "outputPath": "./server/idMappings.js"
-    }]
+    [
+      "run-on-server",
+      {
+        "outputPath": "./server/idMappings.js"
+      }
+    ]
   ]
 }
 ```
+
+## Notes/Gotchas
+
+### ID mappings file contains old entries until recreated
+
+The plugin never removes entries from the id mappings file, it only adds them. This means that your id mappings file will grow over time and contain entries for code you no longer have. To clean the entries up, remove the id mappings file and re-run babel. It's best practice to clear out all entries before releasing a new production-facing build.
+
+If you are building content from a `src` directory into a `dist` directory, my recommendation is to output the id mappings file into `dist`, and then clear the contents of `dist` before running each build (as part of your build script).
+
+### outputPath resolution may not work as expected
+
+The outputPath in `.babelrc` is resolved relative to where you run `babel` (`process.cwd()`). This usually works, but if your id mappings file is getting put in the wrong place, you might want to use this workaround to give an absolute path to the plugin:
+
+1. Change your `.babelrc` to have this content:
+
+```json
+{
+  "presets": ["./.babelrc.js"]
+}
+```
+
+2. Create a new file named `.babelrc.js` in the same directory as `.babelrc`, and make it export a config object containing everything your `.babelrc` had in it before:
+
+```js
+module.exports = {
+  plugins: [
+    [
+      "run-on-server",
+      {
+        outputPath: "./server/idMappings.js",
+      },
+    ],
+  ],
+};
+```
+
+3. Import the `path` module and wrap your `outputPath` like so:
+
+```js
+const path = require("path");
+
+module.exports = {
+  plugins: [
+    [
+      "run-on-server",
+      {
+        outputPath: path.resolve(__dirname, "./server/idMappings.js"),
+      },
+    ],
+  ],
+};
+```
+
+> Note: If you are using Babel 7, you don't need to do the `"presets": ["./.babelrc.js"]` `.babelrc` workaround, as `.babelrc.js` will be loaded by babel without any additional config.
