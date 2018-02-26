@@ -13,5 +13,5 @@ test("combines ids from multiple files into one idMappings file", () => {
   );
   exec(`${babel} src -d dist --ignore *.test.js`);
   const idMappings = require("../dist/idMappings");
-  expect(Object.keys(idMappings).length).toBe(2);
+  expect(Object.keys(idMappings).length).toBe(2); // one from index, one from another-file
 });

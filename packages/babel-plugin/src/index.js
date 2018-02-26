@@ -1,10 +1,9 @@
 import path from "path";
-import fs from "fs";
 import * as t from "babel-types";
 import importsVisitor from "imports-visitor";
 import * as errorMessages from "./errorMessages";
 import makeIdForNode from "./makeIdForNode";
-import buildIdMappingsFile from "./buildIdMappingsFile";
+import IdMappingsFile from "./IdMappingsFile";
 
 module.exports = function() {
   return {
@@ -22,6 +21,8 @@ module.exports = function() {
           }
         }
 
+        const idMappingsFile = new IdMappingsFile(outputPath);
+
         const imports = [];
         programPath.traverse(importsVisitor, { imports });
         imports.forEach((importDef) => {
@@ -29,17 +30,14 @@ module.exports = function() {
             return;
           }
 
-          handleClientImport(importDef, outputPath, state);
+          handleClientImport(importDef, idMappingsFile, state);
         });
       },
     },
   };
 };
 
-function handleClientImport(importDef, outputPath, state) {
-  // TODO: handle existing file
-  const mappings = {};
-
+function handleClientImport(importDef, idMappingsFile, state) {
   const binding = importDef.path.findParent((parent) => parent.isStatement())
     .scope.bindings[importDef.variableName];
   const references = binding.referencePaths;
@@ -195,7 +193,7 @@ function handleClientImport(importDef, outputPath, state) {
         }
 
         const codeId = makeIdForNode(nodeToGetSourceFrom, state);
-        mappings[codeId] = JSON.parse(JSON.stringify(node));
+        idMappingsFile.add(codeId, JSON.parse(JSON.stringify(node)));
         pathToReplace.replaceWith(
           t.objectExpression([
             t.objectProperty(t.identifier("id"), t.stringLiteral(codeId)),
@@ -206,6 +204,4 @@ function handleClientImport(importDef, outputPath, state) {
       transform(code.node, code.scope, code);
     });
   });
-
-  fs.writeFileSync(outputPath, buildIdMappingsFile(mappings));
 }
