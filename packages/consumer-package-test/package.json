@@ -5,7 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "babel-plugin-run-on-server": "2.1.0",
-    "run-on-server": "2.1.0"
+    "run-on-server": "2.1.1"
   },
   "devDependencies": {
     "shelljs": "^0.8.1"
