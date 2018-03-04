@@ -1,6 +1,6 @@
 {
   "name": "run-on-server",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A client/server HTTP API to run code on a remote server.",
   "keywords": [
     "eval",
@@ -19,8 +19,8 @@
   "author": "Suchipi Izumi",
   "license": "MIT",
   "dependencies": {
-    "@run-on-server/client": "2.1.0",
-    "@run-on-server/server": "2.1.0",
+    "@run-on-server/client": "2.1.2",
+    "@run-on-server/server": "2.1.2",
     "babel-runtime": "^6.26.0"
   },
   "devDependencies": {

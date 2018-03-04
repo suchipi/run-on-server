@@ -1,6 +1,6 @@
 {
   "name": "@run-on-server/client",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "description": "Client for run-on-server.",
   "repository": {
     "type": "git",

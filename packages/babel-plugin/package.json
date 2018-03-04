@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-run-on-server",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "description": "Babel plugin that compiles id mappings for run-on-server.",
   "repository": {
     "type": "git",

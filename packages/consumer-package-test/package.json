@@ -4,9 +4,9 @@
   "main": "dist/index.js",
   "license": "MIT",
   "dependencies": {
-    "babel-plugin-run-on-server": "2.1.0",
+    "babel-plugin-run-on-server": "2.1.2",
     "babel-runtime": "^6.26.0",
-    "run-on-server": "2.1.1"
+    "run-on-server": "2.1.2"
   },
   "devDependencies": {
     "shelljs": "^0.8.1"
