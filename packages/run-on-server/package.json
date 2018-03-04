@@ -20,7 +20,8 @@
   "license": "MIT",
   "dependencies": {
     "@run-on-server/client": "2.1.0",
-    "@run-on-server/server": "2.1.0"
+    "@run-on-server/server": "2.1.0",
+    "babel-runtime": "^6.26.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
