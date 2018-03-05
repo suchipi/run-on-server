@@ -5,7 +5,10 @@ module.exports = {
     [
       "run-on-server",
       {
-        outputPath: path.resolve(__dirname, "./dist/idMappings.js"),
+        idMappings: {
+          enabled: true,
+          outputPath: path.resolve(__dirname, "./dist/idMappings.js"),
+        },
       },
     ],
   ],
