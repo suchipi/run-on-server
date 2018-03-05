@@ -105,12 +105,15 @@ The optional `options` object that can be passed to `createServer` has this shap
 {
   requireFrom?: string,
   idMappings?: { [key: string]: Function | String },
+  cors?: boolean,
 }
 ```
 
 If `requireFrom` is present, it will specify the starting folder for top-level `require` calls in the code passed to `runOnServer`. For instance, If you set `requireFrom` to "/Users/suchipi/Code/run-on-server", then you would be able to load "/Users/suchipi/Code/run-on-server/foo.js" with `require("./foo")`. If you don't specify a `requireFrom`, it will default to the server's current working directory.
 
 `idMappings` is used in conjunction with a babel plugin to restrict the server so that it can only run code that appeared in your source. For more info, see the [README for babel-plugin-run-on-server](https://github.com/suchipi/run-on-server/blob/master/packages/babel-plugin/README.md).
+
+The server will allow CORS requests from all origins by default. To override this behavior, pass `cors` as `false.`
 
 ### `createClient(url: string) => Function`
 

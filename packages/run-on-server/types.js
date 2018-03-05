@@ -42,6 +42,7 @@ export type RunOnServer = (
 export type ServerConfig = {
   requireFrom?: string,
   idMappings?: IDMappings,
+  cors?: boolean,
 };
 
 export type IDMappings = { [codeId: string]: string | Function };

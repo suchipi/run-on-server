@@ -1,6 +1,7 @@
 /* @flow */
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const stripAnsi = require("strip-ansi");
 const handleRequest = require("./handleRequest");
 import type {
@@ -9,13 +10,22 @@ import type {
   $Request,
   $Response,
 } from "express";
-import type { ServerConfig, APIRequest, APIResponse } from "run-on-server/types";
+import type {
+  ServerConfig,
+  APIRequest,
+  APIResponse,
+} from "run-on-server/types";
 
 module.exports = function createServer(
   serverConfig: ?ServerConfig
 ): $Application {
   const app = express();
   app.use(bodyParser.json());
+
+  if (serverConfig == null || serverConfig.cors !== false) {
+    app.use(cors());
+    app.options("*", cors());
+  }
 
   app.post(
     "/",
