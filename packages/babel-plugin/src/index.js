@@ -13,11 +13,34 @@ module.exports = function() {
           process.cwd(),
           "run-on-server-id-mappings.js"
         );
-        if (this.opts && this.opts.outputPath) {
-          if (path.isAbsolute(this.opts.outputPath)) {
-            outputPath = this.opts.outputPath;
+
+        const options = {
+          idMappings: {
+            enabled: Boolean(
+              this.opts && this.opts.idMappings && this.opts.idMappings.enabled
+            ),
+            outputPath:
+              this.opts && this.opts.idMappings && this.opts.idMappings.enabled
+                ? this.opts.idMappings.outputPath
+                : undefined,
+          },
+          evalRequire: {
+            enabled: Boolean(
+              this.opts &&
+                this.opts.evalRequire &&
+                this.opts.evalRequire.enabled
+            ),
+          },
+        };
+
+        if (options.idMappings.outputPath) {
+          if (path.isAbsolute(options.idMappings.outputPath)) {
+            outputPath = options.idMappings.outputPath;
           } else {
-            outputPath = path.resolve(process.cwd(), this.opts.outputPath);
+            outputPath = path.resolve(
+              process.cwd(),
+              options.idMappings.outputPath
+            );
           }
         }
 
@@ -30,17 +53,21 @@ module.exports = function() {
             return;
           }
 
-          handleClientImport(importDef, idMappingsFile, state);
+          handleClientImport(importDef, idMappingsFile, state, options);
         });
       },
     },
   };
 };
 
-function handleClientImport(importDef, idMappingsFile, state) {
+function handleClientImport(importDef, idMappingsFile, state, options) {
   const binding = importDef.path.findParent((parent) => parent.isStatement())
     .scope.bindings[importDef.variableName];
   const references = binding.referencePaths;
+
+  if (!(options.idMappings.enabled || options.evalRequire.enabled)) {
+    return;
+  }
 
   // `references` are references to createClient, not runOnServer. We need
   // to find references to runOnServer.
@@ -107,7 +134,32 @@ function handleClientImport(importDef, idMappingsFile, state) {
         );
       }
 
-      function transform(
+      function transformEvalRequires() {
+        if (
+          !(t.isArrowFunctionExpression(code) || t.isFunctionExpression(code))
+        ) {
+          return;
+        }
+
+        code.get("body").traverse({
+          Identifier(path) {
+            if (path.node.name !== "require") {
+              return;
+            }
+            path.replaceWith(
+              t.callExpression(t.identifier("eval"), [
+                t.stringLiteral("require"),
+              ])
+            );
+          },
+        });
+      }
+
+      if (options.evalRequire.enabled) {
+        transformEvalRequires();
+      }
+
+      function transformIdMappings(
         node,
         scope,
         pathToReplace,
@@ -170,7 +222,7 @@ function handleClientImport(importDef, idMappingsFile, state) {
               functionDeclaration.async
             );
 
-            transform(
+            transformIdMappings(
               functionExpression,
               scope,
               pathToReplace,
@@ -182,7 +234,7 @@ function handleClientImport(importDef, idMappingsFile, state) {
             binding.path.node.init != null
           ) {
             const init = binding.path.node.init;
-            transform(init, scope, pathToReplace);
+            transformIdMappings(init, scope, pathToReplace);
             return;
           } else {
             throw makeError(
@@ -201,7 +253,9 @@ function handleClientImport(importDef, idMappingsFile, state) {
         );
       }
 
-      transform(code.node, code.scope, code);
+      if (options.idMappings.enabled) {
+        transformIdMappings(code.node, code.scope, code);
+      }
     });
   });
 }

@@ -1,5 +1,48 @@
 # babel-plugin-run-on-server
 
+This is the companion babel plugin for run-on-server.
+
+It does two things:
+
+* Replaces `require` with `eval("require")` within `runOnServer` calls
+* Compiles "id mappings" to prevent run-on-server from running arbitrary code.
+
+See the documentation below for an explanation of each functionality and the rationale behind it.
+
+## Replace `require` with `eval("require")`
+
+If you try to compile this using webpack:
+
+```js
+runOnServer(
+  (code) => {
+    const prettier = require("prettier");
+    return prettier.format(code);
+  },
+  [code]
+);
+```
+
+Then webpack will include the "prettier" module in your clientside code.
+
+Since you're only using it serverside, this is unnecesary.
+
+If `eval("require")` is used instead of `require`, then webpack won't include the module in your clientside code:
+
+```js
+runOnServer(
+  (code) => {
+    const prettier = eval("require")("prettier");
+    return prettier.format(code);
+  },
+  [code]
+);
+```
+
+This plugin can replace `require` with `eval("require")` for you.
+
+## Compiles "ID Mappings"
+
 [`run-on-server`](https://npm.im/run-on-server) lets you run arbitrary code written on the client (browser, node) on the server (node). It can be great for prototyping, but it's insecure out of the box because its server will eval any JavaScript code you throw at it. That makes it unsuitable for production use because any deployed server would be wide open for attackers to run code on.
 
 This babel plugin solves that issue by making `run-on-server/server` refuse to run any code except for the code that appeared in your source.
@@ -91,7 +134,7 @@ Add it to your `.babelrc`:
 }
 ```
 
-By default, the id mappings file will be written to `run-on-server-id-mappings.js` in whatever directory you run babel in. You can configure it by setting the `outputPath` option in your `.babelrc`:
+By default, the plugin doesn't do anything. You need to enable each feature by passing options to the plugin in your `.babelrc`:
 
 ```json
 {
@@ -99,12 +142,30 @@ By default, the id mappings file will be written to `run-on-server-id-mappings.j
     [
       "run-on-server",
       {
-        "outputPath": "./server/idMappings.js"
+        "evalRequire": {
+          "enabled": true
+        },
+        "idMappings": {
+          "enabled": true,
+          "outputPath": "./server/idMappings.js"
+        }
       }
     ]
   ]
 }
 ```
+
+`evalRequire.enabled`
+
+Whether to compile `require` into `eval("require")` within `runOnServer` calls. Defaults to `false`.
+
+`idMappings.enabled`
+
+Whether to compile id mappings and replace the code in `runOnServer` calls with id mappings. Defaults to `false`.
+
+`idMappings.outputPath`
+
+By default, the id mappings file will be written to `run-on-server-id-mappings.js` in whatever directory you run babel in. You can configure it by setting the `idMappings.outputPath` option.
 
 ## Notes/Gotchas
 
@@ -134,7 +195,10 @@ module.exports = {
     [
       "run-on-server",
       {
-        outputPath: "./server/idMappings.js",
+        idMappings: {
+          enabled: true,
+          outputPath: "./server/idMappings.js",
+        },
       },
     ],
   ],
@@ -151,7 +215,10 @@ module.exports = {
     [
       "run-on-server",
       {
-        outputPath: path.resolve(__dirname, "./server/idMappings.js"),
+        idMappings: {
+          enabled: true,
+          outputPath: path.resolve(__dirname, "./server/idMappings.js"),
+        },
       },
     ],
   ],
