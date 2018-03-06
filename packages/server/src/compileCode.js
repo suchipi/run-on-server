@@ -1,7 +1,7 @@
 /* @flow */
 const vm = require("vm");
 const acorn = require("acorn");
-import type { ModuleEnvironment } from "run-on-server/types";
+import type { ModuleEnvironment } from "~types";
 
 module.exports = function compileCode(
   codeString: string,

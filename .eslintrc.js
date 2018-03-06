@@ -10,4 +10,7 @@ module.exports = {
     node: true,
     jest: true,
   },
+  settings: {
+    "import/core-modules": ["~types"],
+  },
 };

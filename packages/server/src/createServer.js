@@ -10,11 +10,7 @@ import type {
   $Request,
   $Response,
 } from "express";
-import type {
-  ServerConfig,
-  APIRequest,
-  APIResponse,
-} from "run-on-server/types";
+import type { ServerConfig, APIRequest, APIResponse } from "~types";
 
 module.exports = function createServer(
   serverConfig: ?ServerConfig

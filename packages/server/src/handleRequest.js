@@ -2,7 +2,7 @@
 const createFakeModuleEnvironment = require("./createFakeModuleEnvironment");
 const parseRequest = require("./parseRequest");
 const compileCode = require("./compileCode");
-import type { APIRequest, ServerConfig } from "run-on-server/types";
+import type { APIRequest, ServerConfig } from "~types";
 
 module.exports = function handleRequest(
   requestBody: APIRequest,
