@@ -17,26 +17,18 @@ runOnServer(
       });
     });
     // createSocket generates a unique ID for a websocket endpoint and returns
-    // a WebSocketID object. The serverside code notices this WebSocketID object,
-    // sets up a websocket endpoint that will call the callback passed to
-    // createSocket (when the client connects), and then returns something like
-    // { __websocketURL: "ws://localhost:3001/f4n983vpy6t584u85j9" }
-    // to the client. NOTE: returning eg. { socket, foo: 5 } or [socketA, socketB]
-    // should be supported (using JSON replacer/reviver).
+    // a URL that the client can connect a websocket to to execute the
+    // callback passed to createSocket.
   },
   ["irc://url"]
-).then(
-  // The client code notices the __websocketURL property and constructs a
-  // WebSocket pointed to the associated URL. It does not open it, that's up to
-  // the user.
-  (socket) => {
-    socket.addEventListener("open", () => console.log("connected"));
+).then((socketUrl) => {
+  const socket = new WebSocket(socketUrl);
+  socket.addEventListener("open", () => console.log("connected"));
 
-    socket.addEventListener("message", (data) => {
-      // do something with the response
-    });
+  socket.addEventListener("message", (data) => {
+    // do something with the response
+  });
 
-    socket.open();
-    socket.write("hello");
-  }
-);
+  socket.open();
+  socket.write("hello");
+});
