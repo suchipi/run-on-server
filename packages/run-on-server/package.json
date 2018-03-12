@@ -25,7 +25,8 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
-    "jest-in-case": "^1.0.2"
+    "jest-in-case": "^1.0.2",
+    "ws": "^5.0.0"
   },
   "scripts": {
     "test": "cd test && ../../../node_modules/.bin/jest"

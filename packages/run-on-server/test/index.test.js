@@ -332,4 +332,97 @@ describe("run-on-server", () => {
       });
     });
   });
+
+  describe("websocket support", () => {
+    const WebSocket = require("ws");
+    beforeEach(startServer);
+
+    test("basic support", () => {
+      return new Promise((resolve, reject) => {
+        runOnServer(() => {
+          // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
+          const createSocket = require("run-on-server/createSocket");
+          return createSocket((socket) => {
+            socket.on("message", (data) => {
+              socket.send("received " + data);
+              socket.close();
+            });
+          });
+        }).then((socketUrl) => {
+          const socket = new WebSocket(socketUrl);
+          socket.addEventListener("message", (event) => {
+            expect(event.data).toEqual("received nyan");
+          });
+          socket.addEventListener("open", () => {
+            socket.send("nyan");
+          });
+          socket.addEventListener("error", (event) => {
+            reject(event);
+          });
+          socket.addEventListener("close", () => {
+            resolve();
+          });
+        }, reject);
+      });
+    });
+
+    it("errors with 4404 if you try to connect to a nonexistent port", () => {
+      return new Promise((resolve, reject) => {
+        const socket = new WebSocket("ws://localhost:7325/not-registered");
+        socket.addEventListener("close", (event) => {
+          expect(event.code).toBe(4404);
+          expect(event.reason).toEqual(
+            "No websocket handler is registered for that URL."
+          );
+          resolve();
+        });
+      });
+    });
+
+    it("errors with 4500 if your code blows up", () => {
+      return new Promise((resolve, reject) => {
+        runOnServer(() => {
+          // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
+          const createSocket = require("run-on-server/createSocket");
+          return createSocket((socket) => {
+            throw new Error("boom");
+          });
+        }).then((socketUrl) => {
+          const socket = new WebSocket(socketUrl);
+          socket.addEventListener("close", (event) => {
+            expect(event.code).toBe(4500);
+            expect(event.reason).toMatch(/^Error: boom\nat/);
+            resolve();
+          });
+        }, reject);
+      });
+    });
+
+    it("unregisters the handler after the first socket disconnects", () => {
+      return new Promise((resolve, reject) => {
+        runOnServer(() => {
+          // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
+          const createSocket = require("run-on-server/createSocket");
+          return createSocket((socket) => {
+            // nothing
+          });
+        }).then((socketUrl) => {
+          const socket = new WebSocket(socketUrl);
+          socket.addEventListener("open", () => {
+            socket.close();
+
+            const socket2 = new WebSocket(socketUrl);
+
+            socket2.addEventListener("close", (event) => {
+              expect(event.code).toBe(4404);
+              expect(event.reason).toEqual(
+                "No websocket handler is registered for that URL."
+              );
+              resolve();
+            });
+          });
+        }, reject);
+      });
+    });
+  });
 });
