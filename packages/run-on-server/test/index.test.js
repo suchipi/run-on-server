@@ -341,8 +341,8 @@ describe("run-on-server", () => {
       return new Promise((resolve, reject) => {
         runOnServer(() => {
           // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
-          const createSocket = require("run-on-server/createSocket");
-          return createSocket((socket) => {
+          const createSocketUrl = require("run-on-server/socket");
+          return createSocketUrl((socket) => {
             socket.on("message", (data) => {
               socket.send("received " + data);
               socket.close();
@@ -383,8 +383,8 @@ describe("run-on-server", () => {
       return new Promise((resolve, reject) => {
         runOnServer(() => {
           // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
-          const createSocket = require("run-on-server/createSocket");
-          return createSocket((socket) => {
+          const createSocketUrl = require("run-on-server/socket");
+          return createSocketUrl((socket) => {
             throw new Error("boom");
           });
         }).then((socketUrl) => {
@@ -402,8 +402,8 @@ describe("run-on-server", () => {
       return new Promise((resolve, reject) => {
         runOnServer(() => {
           // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
-          const createSocket = require("run-on-server/createSocket");
-          return createSocket((socket) => {
+          const createSocketUrl = require("run-on-server/socket");
+          return createSocketUrl((socket) => {
             // nothing
           });
         }).then((socketUrl) => {

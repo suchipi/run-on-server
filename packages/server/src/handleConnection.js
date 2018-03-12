@@ -12,6 +12,9 @@ module.exports = function handleConnection(
   socket.on("close", () => {
     socketRegistry.delete(url);
   });
+  socket.on("error", () => {
+    socketRegistry.delete(url);
+  });
 
   try {
     const handler = socketRegistry.get(url);
