@@ -14,7 +14,7 @@
     "react": "^16.2.0",
     "react-ace": "^5.9.0",
     "react-dom": "^16.2.0",
-    "run-on-server": "2.1.2",
+    "run-on-server": "3.0.0",
     "styled-jsx": "^2.2.3"
   },
   "scripts": {

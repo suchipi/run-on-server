@@ -6,7 +6,7 @@
   "dependencies": {
     "babel-plugin-run-on-server": "3.0.0",
     "babel-runtime": "^6.26.0",
-    "run-on-server": "2.1.2"
+    "run-on-server": "3.0.0"
   },
   "devDependencies": {
     "shelljs": "^0.8.1"
