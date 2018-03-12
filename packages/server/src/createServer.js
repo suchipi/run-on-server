@@ -3,9 +3,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const stripAnsi = require("strip-ansi");
+const http = require("http");
+const WebSocket = require("ws");
+const url = require("url");
 const handleRequest = require("./handleRequest");
+const handleConnection = require("./handleConnection");
 import type {
-  $Application,
   // eslint-disable-next-line no-unused-vars
   $Request,
   $Response,
@@ -14,7 +17,8 @@ import type { ServerConfig, APIRequest, APIResponse } from "~types";
 
 module.exports = function createServer(
   serverConfig: ?ServerConfig
-): $Application {
+): net$Server {
+  const socketRegistry = new Map();
   const app = express();
   app.use(bodyParser.json());
 
@@ -26,7 +30,18 @@ module.exports = function createServer(
   app.post(
     "/",
     (req: { /* :: ...$Request, */ body: APIRequest }, res: $Response) => {
-      handleRequest(req.body, serverConfig)
+      const requestUrl = url.parse(
+        // $FlowFixMe
+        req.protocol + "://" + req.get("Host") + req.originalUrl
+      );
+
+      handleRequest(
+        req.body,
+        serverConfig,
+        // $FlowFixMe
+        requestUrl,
+        socketRegistry
+      )
         .then((result) => {
           res.status(200).send(
             ({
@@ -50,5 +65,13 @@ module.exports = function createServer(
     }
   );
 
-  return app;
+  const server = http.createServer(app);
+
+  const wsServer = new WebSocket.Server({ server });
+
+  wsServer.on("connection", (socket, request) => {
+    handleConnection(socket, request, socketRegistry);
+  });
+
+  return server;
 };

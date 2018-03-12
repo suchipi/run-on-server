@@ -54,3 +54,8 @@ export type ModuleEnvironment = {
   __filename: string,
   __dirname: string,
 };
+
+export type SocketRegistry = Map<
+  string,
+  (socket: WebSocket, request: any) => void
+>;

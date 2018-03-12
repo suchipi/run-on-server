@@ -2,11 +2,14 @@
 const createFakeModuleEnvironment = require("./createFakeModuleEnvironment");
 const parseRequest = require("./parseRequest");
 const compileCode = require("./compileCode");
-import type { APIRequest, ServerConfig } from "~types";
+const wrapRequireForSocket = require("./wrapRequireForSocket");
+import type { APIRequest, ServerConfig, SocketRegistry } from "~types";
 
 module.exports = function handleRequest(
   requestBody: APIRequest,
-  serverConfig: ?ServerConfig
+  serverConfig: ?ServerConfig,
+  requestUrl: URL,
+  socketRegistry: SocketRegistry
 ): Promise<mixed> {
   return new Promise((resolve, reject) => {
     const idMappings = serverConfig && serverConfig.idMappings;
@@ -15,6 +18,8 @@ module.exports = function handleRequest(
 
     const requireFrom = serverConfig && serverConfig.requireFrom;
     const env = createFakeModuleEnvironment(requireFrom);
+
+    env.require = wrapRequireForSocket(env.require, requestUrl, socketRegistry);
 
     const result = runCode(env);
     resolve(result);
