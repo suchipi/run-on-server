@@ -5,6 +5,7 @@
     "packages/browser-example",
     "packages/client",
     "packages/consumer-package-test",
+    "packages/make-module-env",
     "packages/plugin-tester-tool",
     "packages/run-on-server",
     "packages/server"

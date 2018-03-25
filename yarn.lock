@@ -62,16 +62,6 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@run-on-server/server@2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@run-on-server/server/-/server-2.1.2.tgz#4d710a7059fddd159c135b16bd0465b217630de2"
-  dependencies:
-    acorn "^5.3.0"
-    babel-runtime "^6.26.0"
-    body-parser "^1.18.2"
-    express "^4.16.2"
-    strip-ansi "^4.0.0"
-
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
@@ -7238,14 +7228,6 @@ run-async@^2.0.0, run-async@^2.2.0:
   resolved "https://registry.yarnpkg.com/run-async/-/run-async-2.3.0.tgz#0371ab4ae0bdd720d4166d7dfda64ff7a445a6c0"
   dependencies:
     is-promise "^2.1.0"
-
-run-on-server@2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/run-on-server/-/run-on-server-2.1.2.tgz#1ab8d03a114366a4f1947919a7e28389892b507d"
-  dependencies:
-    "@run-on-server/client" "2.1.2"
-    "@run-on-server/server" "2.1.2"
-    babel-runtime "^6.26.0"
 
 run-queue@^1.0.0, run-queue@^1.0.3:
   version "1.0.3"

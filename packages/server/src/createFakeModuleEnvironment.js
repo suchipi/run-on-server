@@ -1,7 +1,6 @@
 /* @flow */
-const Module = require("module");
+const makeModuleEnv = require("make-module-env");
 const path = require("path");
-const makeRequireFunction = require("./makeRequireFunction");
 import type { ModuleEnvironment } from "~types";
 
 module.exports = function createFakeModuleEnvironment(
@@ -14,21 +13,5 @@ module.exports = function createFakeModuleEnvironment(
   const dirname = requireFrom || process.cwd();
   const filename = path.join(dirname, "this-file-doesnt-actually-exist.js");
 
-  const mod = new Module(".", null);
-  mod.filename = filename;
-  mod.paths = Module._nodeModulePaths(filename);
-
-  const req = makeRequireFunction(mod);
-  req.main = mod;
-
-  const exps = {};
-  mod.exports = exps;
-
-  return {
-    exports: exps,
-    require: req,
-    module: mod,
-    __filename: filename,
-    __dirname: dirname,
-  };
+  return makeModuleEnv(filename);
 };
