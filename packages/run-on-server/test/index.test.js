@@ -424,5 +424,15 @@ describe("run-on-server", () => {
         }, reject);
       });
     });
+
+    test("when you make more than one socket url, they are different from each other", async () => {
+      const [urlOne, urlTwo] = await runOnServer(() => {
+        // eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
+        const createSocketUrl = require("run-on-server/socket");
+
+        return [createSocketUrl(() => {}), createSocketUrl(() => {})];
+      });
+      expect(urlOne).not.toEqual(urlTwo);
+    });
   });
 });

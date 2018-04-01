@@ -6,9 +6,8 @@ module.exports = function createCreateSocketUrl(
   requestUrl: URL,
   socketRegistry: SocketRegistry
 ) {
-  const socketId = uid(15);
-
   return function createSocketUrl(handler: (socket: WebSocket) => void) {
+    const socketId = uid(15);
     socketRegistry.set(socketId, handler);
     let protocol = "ws:";
     if (requestUrl.protocol === "https:") {
