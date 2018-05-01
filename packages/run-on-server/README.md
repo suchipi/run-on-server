@@ -60,6 +60,10 @@ runOnServer(async () => {
 }).then((response) => {
   console.log(response); // 57
 });
+
+// You can use `runOnServer.sync` for Synchronous XHR:
+const result = runOnServer.sync("2 + 2");
+console.log(result); // 4
 ```
 
 ## Limitations
@@ -164,9 +168,20 @@ runOnServer(`args.map(x => x * 2)`, [1, 2, 3]).then((response) => {
 * If an arguments array is passed in as the second argument to `runOnServer`, it must be JSON-serializable.
 * If the serverside code throws an Error, the Promise returned from `runOnServer` will reject with an Error with the same name, message, and stack as the serverside error.
 
+### `runOnServer.sync(code: Function | string, args: ?Array<any>) => any`
+
+`runOnServer.sync` works just like `runOnServer` but it uses a Synchronous XHR instead of an async one, so it blocks the main thread until the server responds, and then returns the result.
+
+```js
+const result = runOnServer.sync(() => {
+  return 2 + 2;
+});
+console.log(result); // 4
+```
+
 ### `createSocketUrl(handler: Function) => string`
 
-You can require `run-on-server/socket` within a `runOnServer` call to get the `createSocketUrl` function. It lets you set up a websocket server, and returns a URL that you can connect to clientside to connect to that server:
+You can require `run-on-server/socket` within a `runOnServer` or `runOnServer.sync` call to get the `createSocketUrl` function. It lets you set up a websocket server, and returns a URL that you can connect to clientside to connect to that server:
 
 ```js
 runOnServer(() => {
