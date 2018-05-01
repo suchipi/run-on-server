@@ -117,14 +117,31 @@ function handleClientImport(importDef, idMappingsFile, state, options) {
     runOnServerFunctionName = id.node.name;
     runOnServerPaths.forEach((referencePath) => {
       // Handle module.exports = runOnServer, { foo: runOnServer }, etc.
-      if (!referencePath.parentPath.isCallExpression()) {
+      if (
+        // Allowed forms: runOnServer(...), runOnServer.sync(...), runOnServer["sync"](...)
+        !(
+          referencePath.parentPath.isCallExpression() ||
+          (referencePath.parentPath.isMemberExpression() &&
+            referencePath.parentPath.parentPath.isCallExpression() &&
+            referencePath.parentPath.get("object").node ===
+              referencePath.node &&
+            ((referencePath.parentPath.get("property").isIdentifier() &&
+              referencePath.parentPath.get("property").node.name === "sync") ||
+              ((referencePath.parentPath.get("property").isStringLiteral() ||
+                referencePath.parentPath.get("property").isLiteral()) &&
+                referencePath.parentPath.get("property").node.value ===
+                  "sync")))
+        )
+      ) {
         throw makeError(
           errorMessages.runOnServerNotCalledDirectly,
           referencePath.node
         );
       }
 
-      const callExpression = referencePath.parentPath;
+      const callExpression = referencePath.findParent((parent) =>
+        parent.isCallExpression()
+      );
       const code = callExpression.get("arguments")[0];
       // Handle runOnServer();
       if (code == null) {

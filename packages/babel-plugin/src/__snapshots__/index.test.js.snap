@@ -25,7 +25,11 @@ async function qid(y, z) {
 runOnServer(foo);
 runOnServer(bar);
 runOnServer(qux, [5]);
-runOnServer(qid, [5, 6]);"
+runOnServer(qid, [5, 6]);
+runOnServer.sync(foo);
+runOnServer.sync(bar);
+runOnServer.sync(qux, [5]);
+runOnServer.sync(qid, [5, 6]);"
 `;
 
 exports[`eval require replacement replaces require with eval('require') function declaration 2`] = `""`;
@@ -55,7 +59,11 @@ async function qid(y, z) {
 runOnServer(foo);
 runOnServer(bar);
 runOnServer(qux, [5]);
-runOnServer(qid, [5, 6]);"
+runOnServer(qid, [5, 6]);
+runOnServer.sync(foo);
+runOnServer.sync(bar);
+runOnServer.sync(qux, [5]);
+runOnServer.sync(qid, [5, 6]);"
 `;
 
 exports[`eval require replacement replaces require with eval('require') function declaration 4`] = `""`;
@@ -92,6 +100,34 @@ runOnServer(function serverCode(x) {
   return eval(\\"require\\")(\\"foo\\" + x);
 }, 5);
 runOnServer(async function serverCode(x) {
+  return eval(\\"require\\")(\\"foo\\" + x);
+}, 5);
+runOnServer.sync(() => eval(\\"require\\")(\\"foo\\"));
+runOnServer.sync(async () => eval(\\"require\\")(\\"foo\\"));
+runOnServer.sync(x => eval(\\"require\\")(\\"foo\\" + x), [5]);
+runOnServer.sync(async x => eval(\\"require\\")(\\"foo\\"), [5]);
+runOnServer.sync(function () {
+  return eval(\\"require\\")(\\"foo\\");
+});
+runOnServer.sync(async function () {
+  return eval(\\"require\\")(\\"foo\\");
+});
+runOnServer.sync(function (x) {
+  return eval(\\"require\\")(\\"foo\\" + x);
+}, 5);
+runOnServer.sync(async function (x) {
+  return eval(\\"require\\")(\\"foo\\" + x);
+}, 5);
+runOnServer.sync(function serverCode() {
+  return eval(\\"require\\")(\\"foo\\");
+});
+runOnServer.sync(async function serverCode() {
+  return eval(\\"require\\")(\\"foo\\");
+});
+runOnServer.sync(function serverCode(x) {
+  return eval(\\"require\\")(\\"foo\\" + x);
+}, 5);
+runOnServer.sync(async function serverCode(x) {
   return eval(\\"require\\")(\\"foo\\" + x);
 }, 5);"
 `;
@@ -131,6 +167,34 @@ runOnServer(function serverCode(x) {
 }, 5);
 runOnServer(async function serverCode(x) {
   return eval(\\"require\\")(\\"foo\\" + x);
+}, 5);
+runOnServer.sync(() => eval(\\"require\\")(\\"foo\\"));
+runOnServer.sync(async () => eval(\\"require\\")(\\"foo\\"));
+runOnServer.sync(x => eval(\\"require\\")(\\"foo\\" + x), [5]);
+runOnServer.sync(async x => eval(\\"require\\")(\\"foo\\"), [5]);
+runOnServer.sync(function () {
+  return eval(\\"require\\")(\\"foo\\");
+});
+runOnServer.sync(async function () {
+  return eval(\\"require\\")(\\"foo\\");
+});
+runOnServer.sync(function (x) {
+  return eval(\\"require\\")(\\"foo\\" + x);
+}, 5);
+runOnServer.sync(async function (x) {
+  return eval(\\"require\\")(\\"foo\\" + x);
+}, 5);
+runOnServer.sync(function serverCode() {
+  return eval(\\"require\\")(\\"foo\\");
+});
+runOnServer.sync(async function serverCode() {
+  return eval(\\"require\\")(\\"foo\\");
+});
+runOnServer.sync(function serverCode(x) {
+  return eval(\\"require\\")(\\"foo\\" + x);
+}, 5);
+runOnServer.sync(async function serverCode(x) {
+  return eval(\\"require\\")(\\"foo\\" + x);
 }, 5);"
 `;
 
@@ -145,7 +209,11 @@ const runOnServer = createClient(\\"http://localhost:3000\\");
 runOnServer(\\"require('foo')\\");
 runOnServer(\\"require('foo')\\", [1, 2, 3]);
 runOnServer(\`require('foo')\`);
-runOnServer(\`require('foo')\`, [1, 2, 3]);"
+runOnServer(\`require('foo')\`, [1, 2, 3]);
+runOnServer.sync(\\"require('foo')\\");
+runOnServer.sync(\\"require('foo')\\", [1, 2, 3]);
+runOnServer.sync(\`require('foo')\`);
+runOnServer.sync(\`require('foo')\`, [1, 2, 3]);"
 `;
 
 exports[`eval require replacement replaces require with eval('require') string 2`] = `""`;
@@ -159,7 +227,11 @@ const runOnServer = createClient(\\"http://localhost:3000\\");
 runOnServer(\\"require('foo')\\");
 runOnServer(\\"require('foo')\\", [1, 2, 3]);
 runOnServer(\`require('foo')\`);
-runOnServer(\`require('foo')\`, [1, 2, 3]);"
+runOnServer(\`require('foo')\`, [1, 2, 3]);
+runOnServer.sync(\\"require('foo')\\");
+runOnServer.sync(\\"require('foo')\\", [1, 2, 3]);
+runOnServer.sync(\`require('foo')\`);
+runOnServer.sync(\`require('foo')\`, [1, 2, 3]);"
 `;
 
 exports[`eval require replacement replaces require with eval('require') string 4`] = `""`;
@@ -177,7 +249,8 @@ function foo() {
 const bar = foo;
 const qux = bar;
 
-runOnServer(qux);"
+runOnServer(qux);
+runOnServer.sync(qux);"
 `;
 
 exports[`eval require replacement replaces require with eval('require') variable of variable of variable 2`] = `""`;
@@ -195,7 +268,8 @@ function foo() {
 const bar = foo;
 const qux = bar;
 
-runOnServer(qux);"
+runOnServer(qux);
+runOnServer.sync(qux);"
 `;
 
 exports[`eval require replacement replaces require with eval('require') variable of variable of variable 4`] = `""`;
@@ -443,6 +517,18 @@ runOnServer({
 }, [5]);
 runOnServer({
   id: \\"fe284a4b9ba88fa7a143b8440ddf76e8\\"
+}, [5, 6]);
+runOnServer.sync({
+  id: \\"bd5cd54dcfc60d559e94efbab53b87fc\\"
+});
+runOnServer.sync({
+  id: \\"783bd6310b6172a4d6fddf1da25634c1\\"
+});
+runOnServer.sync({
+  id: \\"999eae4f42dce21459e5af0b9c122b8d\\"
+}, [5]);
+runOnServer.sync({
+  id: \\"fe284a4b9ba88fa7a143b8440ddf76e8\\"
 }, [5, 6]);"
 `;
 
@@ -498,6 +584,18 @@ runOnServer({
   id: \\"999eae4f42dce21459e5af0b9c122b8d\\"
 }, [5]);
 runOnServer({
+  id: \\"fe284a4b9ba88fa7a143b8440ddf76e8\\"
+}, [5, 6]);
+runOnServer.sync({
+  id: \\"bd5cd54dcfc60d559e94efbab53b87fc\\"
+});
+runOnServer.sync({
+  id: \\"783bd6310b6172a4d6fddf1da25634c1\\"
+});
+runOnServer.sync({
+  id: \\"999eae4f42dce21459e5af0b9c122b8d\\"
+}, [5]);
+runOnServer.sync({
   id: \\"fe284a4b9ba88fa7a143b8440ddf76e8\\"
 }, [5, 6]);"
 `;
@@ -562,6 +660,42 @@ runOnServer({
   id: \\"44541807dbfbb72a21a8ae4689edcb58\\"
 }, 5);
 runOnServer({
+  id: \\"6a9c65b9667567a593c80ef540dda6e7\\"
+}, 5);
+runOnServer.sync({
+  id: \\"20dd5f36e5e9c15bd0dbd1f47b9ce147\\"
+});
+runOnServer.sync({
+  id: \\"ccdb69158c0f7b8abcc8b2e9998b2eb8\\"
+});
+runOnServer.sync({
+  id: \\"7073929e2ed9b8bd3aa435866c8e9b93\\"
+}, [5]);
+runOnServer.sync({
+  id: \\"90e94c8ac4e71ff57ebcceac9c88c830\\"
+}, [5]);
+runOnServer.sync({
+  id: \\"dd0ace1b29ea37669faa77fe0757d64b\\"
+});
+runOnServer.sync({
+  id: \\"59d83e55ca985cb4a36158245f07866b\\"
+});
+runOnServer.sync({
+  id: \\"6bf1a99186253aab3e70593c70470470\\"
+}, 5);
+runOnServer.sync({
+  id: \\"a12856ea0316c0c1496e9c21d59aa8bb\\"
+}, 5);
+runOnServer.sync({
+  id: \\"2f725c91f6453e301ceade2ff2876aef\\"
+});
+runOnServer.sync({
+  id: \\"fddfcddcfd03de96f11ea7cbc378bf80\\"
+});
+runOnServer.sync({
+  id: \\"44541807dbfbb72a21a8ae4689edcb58\\"
+}, 5);
+runOnServer.sync({
   id: \\"6a9c65b9667567a593c80ef540dda6e7\\"
 }, 5);"
 `;
@@ -643,6 +777,42 @@ runOnServer({
 }, 5);
 runOnServer({
   id: \\"6a9c65b9667567a593c80ef540dda6e7\\"
+}, 5);
+runOnServer.sync({
+  id: \\"20dd5f36e5e9c15bd0dbd1f47b9ce147\\"
+});
+runOnServer.sync({
+  id: \\"ccdb69158c0f7b8abcc8b2e9998b2eb8\\"
+});
+runOnServer.sync({
+  id: \\"7073929e2ed9b8bd3aa435866c8e9b93\\"
+}, [5]);
+runOnServer.sync({
+  id: \\"90e94c8ac4e71ff57ebcceac9c88c830\\"
+}, [5]);
+runOnServer.sync({
+  id: \\"dd0ace1b29ea37669faa77fe0757d64b\\"
+});
+runOnServer.sync({
+  id: \\"59d83e55ca985cb4a36158245f07866b\\"
+});
+runOnServer.sync({
+  id: \\"6bf1a99186253aab3e70593c70470470\\"
+}, 5);
+runOnServer.sync({
+  id: \\"a12856ea0316c0c1496e9c21d59aa8bb\\"
+}, 5);
+runOnServer.sync({
+  id: \\"2f725c91f6453e301ceade2ff2876aef\\"
+});
+runOnServer.sync({
+  id: \\"fddfcddcfd03de96f11ea7cbc378bf80\\"
+});
+runOnServer.sync({
+  id: \\"44541807dbfbb72a21a8ae4689edcb58\\"
+}, 5);
+runOnServer.sync({
+  id: \\"6a9c65b9667567a593c80ef540dda6e7\\"
 }, 5);"
 `;
 
@@ -699,6 +869,18 @@ runOnServer({
 });
 runOnServer({
   id: \\"99beebb8fcb2435a7bcef2ce7c0d946e\\"
+}, [1, 2, 3]);
+runOnServer.sync({
+  id: \\"c63afd45dad73502a085847e3c5ed5c2\\"
+});
+runOnServer.sync({
+  id: \\"c63afd45dad73502a085847e3c5ed5c2\\"
+}, [1, 2, 3]);
+runOnServer.sync({
+  id: \\"99beebb8fcb2435a7bcef2ce7c0d946e\\"
+});
+runOnServer.sync({
+  id: \\"99beebb8fcb2435a7bcef2ce7c0d946e\\"
 }, [1, 2, 3]);"
 `;
 
@@ -729,6 +911,18 @@ runOnServer({
 });
 runOnServer({
   id: \\"99beebb8fcb2435a7bcef2ce7c0d946e\\"
+}, [1, 2, 3]);
+runOnServer.sync({
+  id: \\"c63afd45dad73502a085847e3c5ed5c2\\"
+});
+runOnServer.sync({
+  id: \\"c63afd45dad73502a085847e3c5ed5c2\\"
+}, [1, 2, 3]);
+runOnServer.sync({
+  id: \\"99beebb8fcb2435a7bcef2ce7c0d946e\\"
+});
+runOnServer.sync({
+  id: \\"99beebb8fcb2435a7bcef2ce7c0d946e\\"
 }, [1, 2, 3]);"
 `;
 
@@ -756,6 +950,9 @@ const bar = foo;
 const qux = bar;
 
 runOnServer({
+        id: \\"670d6b34d060cd3344c48b16389c4770\\"
+});
+runOnServer.sync({
         id: \\"670d6b34d060cd3344c48b16389c4770\\"
 });"
 `;
@@ -785,6 +982,9 @@ const bar = foo;
 const qux = bar;
 
 runOnServer({
+        id: \\"670d6b34d060cd3344c48b16389c4770\\"
+});
+runOnServer.sync({
         id: \\"670d6b34d060cd3344c48b16389c4770\\"
 });"
 `;

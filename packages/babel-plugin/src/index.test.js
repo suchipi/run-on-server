@@ -32,6 +32,10 @@ describe("id mappings", () => {
           runOnServer("args", [1, 2, 3]);
           runOnServer(\`args\`);
           runOnServer(\`args\`, [1, 2, 3]);
+          runOnServer.sync("args");
+          runOnServer.sync("args", [1, 2, 3]);
+          runOnServer.sync(\`args\`);
+          runOnServer.sync(\`args\`, [1, 2, 3]);
         `,
       },
       {
@@ -49,6 +53,18 @@ describe("id mappings", () => {
           runOnServer(async function serverCode() { return 5; });
           runOnServer(function serverCode(x) { return x; }, 5);
           runOnServer(async function serverCode(x) { return x; }, 5);
+          runOnServer.sync(() => 5);
+          runOnServer.sync(async () => 5);
+          runOnServer.sync(x => x, [5]);
+          runOnServer.sync(async x => x, [5]);
+          runOnServer.sync(function() { return 5; });
+          runOnServer.sync(async function() { return 5; });
+          runOnServer.sync(function(x) { return x; }, 5);
+          runOnServer.sync(async function(x) { return x; }, 5);
+          runOnServer.sync(function serverCode() { return 5; });
+          runOnServer.sync(async function serverCode() { return 5; });
+          runOnServer.sync(function serverCode(x) { return x; }, 5);
+          runOnServer.sync(async function serverCode(x) { return x; }, 5);
         `,
       },
       {
@@ -74,6 +90,10 @@ describe("id mappings", () => {
           runOnServer(bar);
           runOnServer(qux, [5]);
           runOnServer(qid, [5, 6]);
+          runOnServer.sync(foo);
+          runOnServer.sync(bar);
+          runOnServer.sync(qux, [5]);
+          runOnServer.sync(qid, [5, 6]);
         `,
       },
       {
@@ -87,6 +107,7 @@ describe("id mappings", () => {
           const qux = bar;
   
           runOnServer(qux);
+          runOnServer.sync(qux);
         `,
       },
     ]
@@ -307,6 +328,10 @@ describe("eval require replacement", () => {
           runOnServer("require('foo')", [1, 2, 3]);
           runOnServer(\`require('foo')\`);
           runOnServer(\`require('foo')\`, [1, 2, 3]);
+          runOnServer.sync("require('foo')");
+          runOnServer.sync("require('foo')", [1, 2, 3]);
+          runOnServer.sync(\`require('foo')\`);
+          runOnServer.sync(\`require('foo')\`, [1, 2, 3]);
         `,
       },
       {
@@ -324,6 +349,18 @@ describe("eval require replacement", () => {
           runOnServer(async function serverCode() { return require("foo"); });
           runOnServer(function serverCode(x) { return require("foo" + x); }, 5);
           runOnServer(async function serverCode(x) { return require("foo" + x); }, 5);
+          runOnServer.sync(() => require("foo"));
+          runOnServer.sync(async () => require("foo"));
+          runOnServer.sync(x => require("foo" + x), [5]);
+          runOnServer.sync(async x => require("foo"), [5]);
+          runOnServer.sync(function() { return require("foo"); });
+          runOnServer.sync(async function() { return require("foo"); });
+          runOnServer.sync(function(x) { return require("foo" + x); }, 5);
+          runOnServer.sync(async function(x) { return require("foo" + x); }, 5);
+          runOnServer.sync(function serverCode() { return require("foo"); });
+          runOnServer.sync(async function serverCode() { return require("foo"); });
+          runOnServer.sync(function serverCode(x) { return require("foo" + x); }, 5);
+          runOnServer.sync(async function serverCode(x) { return require("foo" + x); }, 5);
         `,
       },
       {
@@ -349,6 +386,10 @@ describe("eval require replacement", () => {
           runOnServer(bar);
           runOnServer(qux, [5]);
           runOnServer(qid, [5, 6]);
+          runOnServer.sync(foo);
+          runOnServer.sync(bar);
+          runOnServer.sync(qux, [5]);
+          runOnServer.sync(qid, [5, 6]);
         `,
       },
       {
@@ -362,6 +403,7 @@ describe("eval require replacement", () => {
           const qux = bar;
   
           runOnServer(qux);
+          runOnServer.sync(qux);
         `,
       },
     ]
