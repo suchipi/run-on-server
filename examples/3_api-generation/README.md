@@ -2,7 +2,7 @@
 
 This example shows how to generate an API using `babel-plugin-run-on-server`. The build is done as a separate step and id mappings are written to `dist/idMappings.js` and then included in the `require("./idMappings")` in `src/server.js` (which gets copied to `dist/server.js`).
 
-Configured this way, the server will NOT execute any code given to it, only the code that is found in its idMappings file. Therefore, it is suitable for production use. You can open your console and try to use the global `runOnServer` function to execute arbitrary code; you will note it no longer works.
+Configured this way, the server will NOT execute arbitrary code given to it, only the code that is found in its idMappings file. Therefore, it is suitable for production use. You can open your console and try to use the global `runOnServer` function to execute arbitrary code; you will note it no longer works.
 
 To run the example:
 
