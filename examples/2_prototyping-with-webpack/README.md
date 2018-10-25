@@ -1,4 +1,4 @@
-# `examples/prototyping`
+# `examples/2_prototyping-with-webpack`
 
 This example shows how to use run-on-server for local prototyping using webpack. Both the server and client are loaded via the npm package, and the client is compiled using webpack.
 

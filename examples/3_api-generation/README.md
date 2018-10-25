@@ -1,4 +1,4 @@
-# `examples/prototyping`
+# `examples/3_api-generation`
 
 This example shows how to generate an API using `babel-plugin-run-on-server`. The build is done as a separate step and id mappings are written to `dist/idMappings.js` and then included in the `require("./idMappings")` in `src/server.js` (which gets copied to `dist/server.js`).
 
