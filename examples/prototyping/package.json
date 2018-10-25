@@ -1,0 +1,15 @@
+{
+  "name": "@examples/prototyping",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "http-server": "^0.11.1",
+    "run-on-server": "^3.1.0"
+  },
+  "scripts": {
+    "server": "node src/server.js",
+    "client": "http-server src"
+  }
+}
