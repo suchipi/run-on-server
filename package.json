@@ -16,6 +16,8 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-flow": "^6.23.0",
+    "builtin-modules": "^3.0.0",
+    "case": "^1.5.5",
     "chalk": "^2.3.1",
     "concurrently": "^3.5.1",
     "eslint": "^4.16.0",
@@ -27,6 +29,10 @@
     "flow-typed": "^2.3.0",
     "jest": "^22.4.2",
     "prettier": "^1.10.2",
+    "rollup": "^0.66.6",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-json": "^3.1.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
     "shelljs": "^0.8.1"
   },
   "scripts": {
