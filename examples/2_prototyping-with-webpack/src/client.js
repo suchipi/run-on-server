@@ -1,5 +1,8 @@
-/* global runOnServerClient */
-const runOnServer = runOnServerClient("http://localhost:3001");
+const createClient = require("run-on-server/client");
+
+const runOnServer = createClient("http://localhost:3001");
+
+window.runOnServer = runOnServer;
 
 runOnServer(() => {
   const fs = require("fs");

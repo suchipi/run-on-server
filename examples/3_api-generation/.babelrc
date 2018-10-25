@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    [
+      "run-on-server",
+      {
+        "idMappings": {
+          "enabled": true,
+          "outputPath": "./dist/idMappings.js"
+        }
+      }
+    ]
+  ]
+}

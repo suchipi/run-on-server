@@ -2,6 +2,8 @@ const createClient = require("run-on-server/client");
 
 const runOnServer = createClient("http://localhost:3001");
 
+window.runOnServer = runOnServer;
+
 runOnServer(() => {
   const fs = require("fs");
   return fs.readFileSync("./package.json", "utf-8");
