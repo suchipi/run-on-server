@@ -39,24 +39,16 @@ module.exports = function createClient(url: string): RunOnServer {
       return response.result;
     } else {
       const error = new Error();
-      Object.defineProperty(error, "name", {
-        writable: true,
-        enumerable: false,
-        configurable: true,
-        value: response.err.name,
-      });
-      Object.defineProperty(error, "message", {
-        writable: true,
-        enumerable: false,
-        configurable: true,
-        value: response.err.message,
-      });
-      Object.defineProperty(error, "stack", {
-        writable: true,
-        enumerable: false,
-        configurable: true,
-        value: response.err.stack,
-      });
+      for (let key in response.err) {
+        if ({}.hasOwnProperty.call(response.err, key)) {
+          Object.defineProperty(error, key, {
+            writable: true,
+            enumerable: false,
+            configurable: true,
+            value: response.err[key],
+          });
+        }
+      }
 
       throw error;
     }

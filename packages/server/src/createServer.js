@@ -58,6 +58,7 @@ module.exports = function createServer(
                 name: stripAnsi(err.name),
                 message: stripAnsi(err.message),
                 stack: stripAnsi(err.stack),
+                code: err.code,
               },
             }: APIResponse)
           );
