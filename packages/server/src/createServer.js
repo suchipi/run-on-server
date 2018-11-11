@@ -51,13 +51,14 @@ module.exports = function createServer(
           );
         })
         .catch((err: Error) => {
-          res.status(500).send(
+          res.status(200).send(
             ({
               success: false,
               err: {
                 name: stripAnsi(err.name),
                 message: stripAnsi(err.message),
                 stack: stripAnsi(err.stack),
+                // $FlowFixMe
                 code: err.code,
               },
             }: APIResponse)
