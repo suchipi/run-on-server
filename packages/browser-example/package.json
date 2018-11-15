@@ -12,7 +12,7 @@
     "webpack-dev-server": "^3.1.1"
   },
   "dependencies": {
-    "run-on-server": "3.1.2"
+    "run-on-server": "3.2.0"
   },
   "scripts": {
     "server": "nodemon --watch .. src/server.js",

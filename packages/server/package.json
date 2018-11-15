@@ -1,6 +1,6 @@
 {
   "name": "@run-on-server/server",
-  "version": "3.0.3",
+  "version": "3.1.0",
   "description": "Express JSON server for run-on-server.",
   "repository": {
     "type": "git",
