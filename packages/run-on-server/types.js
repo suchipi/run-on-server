@@ -43,6 +43,7 @@ export type ServerConfig = {
   requireFrom?: string,
   idMappings?: IDMappings,
   cors?: boolean,
+  requestSizeLimit?: string,
 };
 
 export type IDMappings = { [codeId: string]: string | Function };

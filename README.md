@@ -110,6 +110,7 @@ The optional `options` object that can be passed to `createServer` has this shap
   requireFrom?: string,
   idMappings?: { [key: string]: Function | String },
   cors?: boolean,
+  requestSizeLimit?: string,
 }
 ```
 
@@ -118,6 +119,8 @@ If `requireFrom` is present, it will specify the starting folder for top-level `
 `idMappings` is used in conjunction with a babel plugin to restrict the server so that it can only run code that appeared in your source. For more info, see the [README for babel-plugin-run-on-server](https://github.com/suchipi/run-on-server/blob/master/packages/babel-plugin/README.md).
 
 The server will allow CORS requests from all origins by default. To override this behavior, pass `cors` as `false.`
+
+When the server parses the incoming JSON from a request, it keeps all the bytes in memory. For safety reasons (to prevent high memory usage), a limit can be configured, and if a request that is too large comes through, the server wil reject the request. The limit is configured as `"1GB"` by default, but you can pass `requestSizeLimit` to change it. You can pass any string that can be parsed by the npm [bytes](https://www.npmjs.com/package/bytes) package, eg. `"100kb"`, `"2MB"`, etc (unit is case-insensitive).
 
 ### `createClient(url: string) => Function`
 

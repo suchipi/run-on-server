@@ -20,7 +20,11 @@ module.exports = function createServer(
 ): net$Server {
   const socketRegistry = new Map();
   const app = express();
-  app.use(bodyParser.json());
+  app.use(
+    bodyParser.json({
+      limit: (serverConfig && serverConfig.requestSizeLimit) || "1GB",
+    })
+  );
 
   if (serverConfig == null || serverConfig.cors !== false) {
     app.use(cors());
