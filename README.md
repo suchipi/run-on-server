@@ -1,6 +1,6 @@
 # run-on-server
 
-`run-on-server` provides a way to run arbitrary JavaScript code from a client (browser, node, etc) on a remote server (node) via HTTP.
+`run-on-server` provides a way to run arbitrary JavaScript code from a client (browser, node, etc) on a remote server (node) via HTTP. I know what you're thinking; that's a terrible idea. But there's more. Keep reading.
 
 ## Usage
 
