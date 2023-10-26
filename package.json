@@ -7,7 +7,10 @@
     "packages/consumer-package-test",
     "packages/plugin-tester-tool",
     "packages/run-on-server",
-    "packages/server"
+    "packages/server",
+    "examples/1_prototyping",
+    "examples/1_prototyping-with-webpack",
+    "examples/3_api-generation"
   ],
   "devDependencies": {
     "babel-cli": "^6.26.0",
