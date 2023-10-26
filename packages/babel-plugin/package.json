@@ -16,8 +16,8 @@
     "babel-types": "^6.26.0",
     "common-tags": "^1.7.2",
     "imports-visitor": "1.1.0",
-    "md5": "^2.2.1",
-    "text-buffer": "^13.11.8"
+    "line-and-column-to-string-index": "^1.0.0",
+    "md5": "^2.2.1"
   },
   "devDependencies": {
     "babel-core": "6",
