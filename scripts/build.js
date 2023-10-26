@@ -32,7 +32,7 @@ pkgsWithSrc.forEach((pkgPath) => {
     umdBundleName = "runOnServer" + umdBundleName;
   }
 
-  const rollupConfig = path.resolve(__dirname, "..", "rollup.config.js");
+  const rollupConfig = path.resolve(__dirname, "..", "rollup.config.mjs");
 
   exec(
     `${bin(

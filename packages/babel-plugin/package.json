@@ -10,19 +10,19 @@
   "author": "Suchipi Izumi",
   "license": "MIT",
   "dependencies": {
-    "babel-code-frame": "^6.26.0",
-    "babel-generator": "^6.26.0",
-    "babel-runtime": "^6.26.0",
-    "babel-types": "^6.26.0",
-    "common-tags": "^1.7.2",
-    "imports-visitor": "1.1.0",
-    "md5": "^2.2.1",
-    "text-buffer": "^13.11.8"
+    "@babel/code-frame": "^7.22.13",
+    "@babel/generator": "^7.23.0",
+    "@babel/runtime": "^7.23.2",
+    "@babel/types": "^7.23.0",
+    "common-tags": "^1.8.2",
+    "imports-visitor": "2.0.0",
+    "line-and-column-to-string-index": "^1.0.0",
+    "md5": "^2.3.0"
   },
   "devDependencies": {
-    "babel-core": "6",
+    "@babel/core": "^7.23.2",
     "jest-in-case": "^1.0.2",
-    "rimraf": "^2.6.2"
+    "rimraf": "^5.0.5"
   },
   "scripts": {
     "test": "../../node_modules/.bin/jest"

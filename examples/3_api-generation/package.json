@@ -5,13 +5,13 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-plugin-run-on-server": "^3.1.0",
-    "html-webpack-plugin": "^3.2.0",
-    "run-on-server": "^3.1.0",
-    "webpack": "^4.23.1",
-    "webpack-dev-server": "^3.1.10"
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.2",
+    "babel-plugin-run-on-server": "3.1.0",
+    "html-webpack-plugin": "^5.5.3",
+    "run-on-server": "3.2.0",
+    "webpack": "^5.89.0",
+    "webpack-dev-server": "^4.15.1"
   },
   "scripts": {
     "build": "mkdir -p dist && rm -rf dist/* && babel src --out-dir dist",

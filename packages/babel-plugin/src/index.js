@@ -1,5 +1,5 @@
 import path from "path";
-import * as t from "babel-types";
+import * as t from "@babel/types";
 import importsVisitor from "imports-visitor";
 import * as errorMessages from "./errorMessages";
 import makeIdForNode from "./makeIdForNode";
