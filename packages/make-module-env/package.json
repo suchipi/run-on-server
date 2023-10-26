@@ -1,8 +1,0 @@
-{
-  "name": "make-module-env",
-  "version": "1.0.1",
-  "description": "Create exports, module, require, __filename, and __dirname variables for any path",
-  "main": "dist/index.js",
-  "author": "Suchipi <me@suchipi.com>",
-  "license": "MIT"
-}
