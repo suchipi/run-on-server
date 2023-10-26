@@ -1,13 +1,13 @@
 {
   "private": true,
   "workspaces": [
+    "packages/client",
+    "packages/server",
+    "packages/run-on-server",
     "packages/babel-plugin",
     "packages/browser-example",
-    "packages/client",
     "packages/consumer-package-test",
     "packages/plugin-tester-tool",
-    "packages/run-on-server",
-    "packages/server",
     "examples/1_prototyping",
     "examples/2_prototyping-with-webpack",
     "examples/3_api-generation"

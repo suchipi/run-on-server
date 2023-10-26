@@ -2,7 +2,7 @@ const createClient = require("run-on-server/client");
 
 const runOnServer = createClient("http://localhost:3001");
 
-window.runOnServer = runOnServer;
+// window.runOnServer = runOnServer;
 
 runOnServer(() => {
   const fs = require("fs");
