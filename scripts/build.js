@@ -9,6 +9,7 @@ const bin = (name) =>
   path.resolve(__dirname, "..", "node_modules", ".bin", name);
 
 const pkgsWithSrc = packageJson.workspaces
+  .filter(pkgPath => !pkgPath.startsWith("examples"))
   .map((pkgPath) => {
     if (fs.existsSync(path.resolve(__dirname, "..", pkgPath, "src"))) {
       return pkgPath;
