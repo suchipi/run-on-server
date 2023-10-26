@@ -9,7 +9,7 @@
     "packages/run-on-server",
     "packages/server",
     "examples/1_prototyping",
-    "examples/1_prototyping-with-webpack",
+    "examples/2_prototyping-with-webpack",
     "examples/3_api-generation"
   ],
   "devDependencies": {
