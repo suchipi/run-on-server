@@ -7,7 +7,7 @@
     "url": "https://github.com/suchipi/run-on-server.git"
   },
   "main": "dist/index.js",
-  "author": "Suchipi Izumi",
+  "author": "Lily Skye",
   "license": "MIT",
   "dependencies": {
     "babel-code-frame": "^6.26.0",
